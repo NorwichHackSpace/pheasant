@@ -15,7 +15,6 @@ import Layout, {
 import ContainedButtons from "./components/ContainedButtons";
 import SimpleList from "./components/SimpleList";
 import SideBarCard from "./components/SideBarCard";
-import OpenMap from "./components/OpenMap";
 
 const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);
@@ -51,6 +50,11 @@ scheme.configureEdgeSidebar((builder) => {
 });
 
 scheme.enableAutoCollapse("unique_id", "md");
+import dynamic from "next/dynamic";
+
+const MapBoxNoSSR = dynamic(() => import("./components/MapBox"), {
+  ssr: false,
+});
 
 const Dashboard = () => {
   return (
@@ -72,7 +76,7 @@ const Dashboard = () => {
             <CollapseBtn />
           </DrawerSidebar>
           <Content>
-            <OpenMap />
+            <MapBoxNoSSR />
           </Content>
         </>
       )}
