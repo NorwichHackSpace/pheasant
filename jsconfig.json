@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@layouts/*": ["layouts/*"],
+      "@api": ["api/index"]
+    }
+  }
+}
