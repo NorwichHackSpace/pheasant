@@ -1,16 +1,12 @@
 import React from "react";
-import Layout from "../layouts/Layout";
-import dynamic from "next/dynamic";
-
-const MapBoxNoSSR = dynamic(() => import("./components/MapBox"), {
-  ssr: false,
-});
+import NoSsr from "@material-ui/core/NoSsr";
+import MapBox from "../components/MapBox/MapBox";
 
 const Dashboard = () => {
   return (
-    <Layout>
-      <MapBoxNoSSR />
-    </Layout>
+    <NoSsr>
+      <MapBox />
+    </NoSsr>
   );
 };
 

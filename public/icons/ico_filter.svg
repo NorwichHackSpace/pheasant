@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="18px" viewBox="0 0 16 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Filter icon feint</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Elements" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Buttons-and-UI-Elements" transform="translate(-499.000000, -2901.000000)" stroke="#B9C5D2">
+            <g id="Filter-Icon-feint" transform="translate(500.000000, 2902.000000)">
+                <g id="Filter-icon-feint">
+                    <path d="M5.44640542,15.9235733 L5.44640542,8.81210667 C5.44640542,8.81210667 5.45471792,8.09477333 4.76976792,7.33904 C4.08537208,6.58330667 0.27713875,2.62117333 0.27713875,2.62117333 L0.944355417,0.26704 L6.90386375,0.26704 L12.8639263,0.26704 L13.5311429,2.62117333 C13.5311429,2.62117333 9.72290958,6.58330667 9.03795958,7.33904 C8.35356375,8.09477333 8.36187625,8.81210667 8.36187625,8.81210667 L8.36187625,14.1289067 L5.44640542,15.9235733 Z" id="Stroke-1"></path>
+                    <path d="M0.46001375,2.62096 L13.3294263,2.62096" id="Stroke-3"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
