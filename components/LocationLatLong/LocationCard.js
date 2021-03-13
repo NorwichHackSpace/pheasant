@@ -13,10 +13,15 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
+  main: {
+    backgroundColor: "#ffffff",
+    height: "inherit",
+  },
 });
 
 export default function LocationCard() {
   const classes = useStyles();
+  //  style={this.props.style.main}
 
   return (
     <Card className={classes.root}>

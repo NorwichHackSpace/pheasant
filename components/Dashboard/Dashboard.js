@@ -10,14 +10,15 @@ import { Grid } from "@material-ui/core";
 // } from "../components";
 import useStyles from "./Dashboard-styles";
 import LocationCard from "../LocationLatLong/LocationCard";
+import ResponsiveLocalStorageLayout from "../ResponsiveGrid/ResponsiveGrid";
 const Dashboard = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={4}>
+      <ResponsiveLocalStorageLayout>
         <LocationCard />
-      </Grid>
+      </ResponsiveLocalStorageLayout>
     </div>
   );
 };

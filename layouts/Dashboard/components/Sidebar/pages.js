@@ -7,7 +7,7 @@ import ReportProblemTwoToneIcon from "@material-ui/icons/ReportProblemTwoTone";
 const pages = [
   {
     title: "Dashboard",
-    href: "/dashboard",
+    href: "/",
     icon: <DashboardTwoToneIcon />,
   },
   {
