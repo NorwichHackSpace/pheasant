@@ -1,5 +1,14 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# Basicly, anything deemed to be a password file. Tried to make idiot proof.
+Password.*
+password.*
+passwords.*
+Passwords.*
+
+# Linux editors
+*.swap
+
 # dependencies
 /node_modules
 

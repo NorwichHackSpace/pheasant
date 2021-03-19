@@ -23,7 +23,7 @@ export default function MyApp(props) {
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <ThemeProvider>
         <Head>
-          <title>FX Sales</title>
+          <title>Pheasant</title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
