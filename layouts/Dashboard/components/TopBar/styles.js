@@ -52,7 +52,7 @@ export default makeStyles((theme) => ({
     marginLeft: "auto", // This moves the 'Theme Toggle' icon, but nothing else
   },
   notificationsButton: {
-    margin: theme.spacing(0, 1),
+    margin: theme.spacing(1, 1),
   },
   signOutButton: {
     marginLeft: theme.spacing(1),

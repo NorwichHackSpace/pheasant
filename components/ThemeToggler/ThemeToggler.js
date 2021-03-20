@@ -6,8 +6,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import PaletteIcon from "@material-ui/icons/Palette";
 import ThemeContext from "../../theme/ThemeContext";
 import { Tooltip } from "@material-ui/core";
+import { themePalette } from "../../theme/palette";
 
-const themes = ["Light", "Dark", "Contrast"];
+const themes = Object.keys(themePalette);
 
 export default function ThemeToggler({ className }) {
   const [anchorEl, setAnchorEl] = React.useState(null);

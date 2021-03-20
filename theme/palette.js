@@ -3,7 +3,7 @@ import { red, blue, lightBlue, yellow, green } from "@material-ui/core/colors";
 const white = "#fff";
 const black = "#000";
 
-const themePalette = {
+export const themePalette = {
   Light: {
     type: "light",
     background: { paper: "rgb(255, 255, 255)", default: "rgb(245, 245, 245)" },
@@ -22,7 +22,7 @@ const themePalette = {
       primary: "rgb(33, 33, 33)",
       secondary: "rgb(55, 55, 55)",
       contrastText: white,
-      backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
+      backgroundImage: "url(/logos/logo-hoz-eaaa-whiten.png)",
     },
     contrastText: white,
   },
