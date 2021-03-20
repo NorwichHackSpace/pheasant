@@ -1,4 +1,5 @@
 import { Component } from "react";
+import getConfig from "next/config";
 import MapGL, {
   Popup,
   NavigationControl,
@@ -42,10 +43,11 @@ class MapBox extends Component {
   };
 
   render() {
+    const { publicRuntimeConfig } = getConfig();
     return (
       <MapGL
         mapStyle="mapbox://styles/mapbox/streets-v9"
-        mapboxApiAccessToken="pk.eyJ1IjoidG9ieWNhdGxpbiIsImEiOiJja2xtdDh6b3gwY2c5Mm9xeXo4MTg4NjEzIn0.6ayr26hPZGDJoD7_JzvKxw"
+        mapboxApiAccessToken={publicRuntimeConfig.mapboxApiAccessToken}
         {...this.state.viewport}
         onViewportChange={(viewport) => this.setState({ viewport })}
       >

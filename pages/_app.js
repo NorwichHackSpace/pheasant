@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import getConfig from "next/config";
 import PropTypes from "prop-types";
 import Head from "next/head";
 // import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,9 +8,10 @@ import ThemeProvider from "../theme";
 import ThemeContext from "../theme/ThemeContext";
 import DashboardLayout from "../layouts/Dashboard/Dashboard";
 export default function MyApp(props) {
+  const { publicRuntimeConfig } = getConfig();
   const { Component, pageProps } = props;
   //Set default theme
-  const [theme, setTheme] = useState("Dark");
+  const [theme, setTheme] = useState(publicRuntimeConfig.defaultTheme);
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -23,7 +25,7 @@ export default function MyApp(props) {
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <ThemeProvider>
         <Head>
-          <title>Pheasant</title>
+          <title>{publicRuntimeConfig.title} </title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"

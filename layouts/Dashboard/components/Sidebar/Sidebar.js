@@ -47,7 +47,7 @@ function Sidebar(props) {
             <Link href={page.href}>
               <ListItem
                 key={page.title}
-                activeClassName={classes.activeListItem}
+                activeclassname={classes.activeListItem}
                 className={classes.listItem}
               >
                 <ListItemIcon className={classes.listItemIcon}>
