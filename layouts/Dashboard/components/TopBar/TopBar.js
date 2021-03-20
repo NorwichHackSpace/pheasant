@@ -20,29 +20,36 @@ function Topbar(props) {
   return (
     <AppBar className={clsx(classes.root, className)}>
       <Toolbar className={classes.toolbar}>
-        <div className={classes.brandWrapper}>
-          <div className={classes.logo}></div>
-          <IconButton
+
+        <IconButton
             className={classes.menuButton}
             aria-label="Menu"
             onClick={onToggleSidebar}
           >
             {openSidebar ? <CloseIcon /> : <MenuIcon />}
-          </IconButton>
+        </IconButton>
+
+        <div className={classes.brandWrapper}>
+         <div className={classes.logo}></div>
         </div>
-        <ThemeToggler className={classes.themeToggler} />
+        
+       
+     	<ThemeToggler className={classes.themeToggler} / >
+        
         <IconButton className={classes.notificationsButton}>
           <Badge
             badgeContent={notifications.length}
-            color="primary"
+            color="secondary"
             variant="dot"
           >
             <NotificationsIcon />
           </Badge>
         </IconButton>
+        
         <IconButton className={classes.signOutButton}>
           <InputIcon />
         </IconButton>
+        
       </Toolbar>
       {children}
     </AppBar>

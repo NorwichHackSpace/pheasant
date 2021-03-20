@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TuneOutlinedIcon from "@material-ui/icons/TuneOutlined";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import PaletteIcon from "@material-ui/icons/Palette";
 import ThemeContext from "../../theme/ThemeContext";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Badge, Toolbar, IconButton, AppBar } from "@material-ui/core";
 import { themePalette } from "../../theme/palette";
 
 const themes = Object.keys(themePalette);
@@ -25,7 +26,7 @@ export default function ThemeToggler({ className }) {
 
   return (
     <div className={className}>
-      <Tooltip title="Change Theme">
+      <IconButton title="Change Theme">
         <TuneOutlinedIcon
           aria-label="theme-palette"
           aria-controls="theme-menu"
@@ -34,7 +35,7 @@ export default function ThemeToggler({ className }) {
         >
           <PaletteIcon />
         </TuneOutlinedIcon>
-      </Tooltip>
+      </IconButton>
       <Menu
         id="theme-toggler"
         anchorEl={anchorEl}

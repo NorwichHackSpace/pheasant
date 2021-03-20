@@ -1,19 +1,16 @@
 import { red, blue, lightBlue, yellow, green } from "@material-ui/core/colors";
 
-const white = "#fff";
-const black = "#000";
-
 export const themePalette = {
   Light: {
     type: "light",
     background: { paper: "rgb(255, 255, 255)", default: "rgb(245, 245, 245)" },
     custom: {
       primary: "#2992B6",
-      secondary: "#20718E", //003E67 dark blue
-      contrastText: white,
+      secondary: "#20718E",
+      contrastText: "white",
       backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
     },
-    contrastText: black,
+    contrastText: "black",
   },
   Dark: {
     type: "dark",
@@ -21,10 +18,10 @@ export const themePalette = {
     custom: {
       primary: "rgb(33, 33, 33)",
       secondary: "rgb(55, 55, 55)",
-      contrastText: white,
-      backgroundImage: "url(/logos/logo-hoz-eaaa-whiten.png)",
+      contrastText: "white",
+      backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
     },
-    contrastText: white,
+    contrastText: "white",
   },
   Contrast: {
     type: "dark",
@@ -32,10 +29,10 @@ export const themePalette = {
     custom: {
       primary: "rgb(33, 33, 33)",
       secondary: "rgb(55, 55, 55)",
-      contrastText: white,
-      backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
+      contrastText: "white",
+      backgroundImage: "url(/logos/logo-hoz-eaaa-whiten.png)",
     },
-    contrastText: white,
+    contrastText: "white",
   },
 };
 // theme on of basil, crane, pinky, rally, reply
@@ -48,8 +45,6 @@ const makePalette = (type) => {
     border: "#DFE3E8",
     divider: "#DFE3E8",
     common: {
-      black,
-      white,
       contrastText,
       commonBackground: "rgb(45, 45, 45)",
       neutral: "#E4E7EB",
