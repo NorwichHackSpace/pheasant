@@ -3,56 +3,53 @@ import { urlObjectKeys } from "next/dist/next-server/lib/utils";
 
 export default makeStyles((theme) => ({
   root: {
-    borderBottom: `1px solid ${theme.palette.background.default}`,
-    boxShadow: `0 0 35px 0  ${theme.palette.background.default}`,
-    backgroundColor: theme.palette.background.paper,
+    borderBottom: `2px solid ${theme.palette.background.default}`,
+    boxShadow: `2 0 35px 0  ${theme.palette.background.default}`,
+    backgroundColor: theme.palette.custom.primary,
     display: "flex",
     alignItems: "center",
     height: 60,
     zIndex: theme.appBar,
   },
   toolbar: {
-    minHeight: "auto",
+    minHeight: "1%", //Stops logo overflowing
     width: "100%",
-    paddingLeft: 0,
+    paddingLeft: "5px",
   },
   brandWrapper: {
     background: theme.palette.custom.primary,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: 271,
-    height: 60,
+    width: "271px", //Ugly hack to get the height of logo displayed
+    height: "calc(100% - 2px)",
     flexShrink: 0,
   },
   logo: {
     width: "calc(100% - 90px)",
     height: "100%",
-    maxWidth: "100%",
-    margin: "auto",
+    margin: "20px", //EAAA Logo doesn't resize until ~20px
+    paddingTop: "16px", //Another ugly hack to get the height of logo centered to the bar
     fontSize: 22,
     fontWeight: 700,
     letterSpacing: 3,
-    color: theme.palette.custom.contrastText,
+    color: theme.palette.background.default,
     backgroundImage: theme.palette.custom.backgroundImage,
     backgroundRepeat: "no-repeat",
     // backgroundAttachment: "fixed",
     backgroundPosition: "center",
     backgroundSize: "contain",
   },
-  title: {
+/*  
+    title: { //Only used for text, not for image logos
     marginLeft: theme.spacing(5),
     textTransform: "uppercase",
     textDecoration: "none",
     fontSize: 14,
-    color: theme.palette.contrastText,
-  },
-  menuButton: {
-    color: theme.palette.custom.contrastText,
-    marginLeft: -4,
-  },
+    color: theme.palette.Text,
+  }, */
   themeToggler: {
-    marginLeft: "auto",
+    marginLeft: "auto", // This moves the 'Theme Toggle' icon, but nothing else
   },
   notificationsButton: {
     margin: theme.spacing(0, 1),
@@ -61,7 +58,7 @@ export default makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
   [theme.breakpoints.down("sm")]: {
-    brandWrapper: { width: 75 },
-    logo: { display: "none" },
+   brandWrapper: { margin: "none" },
+/*   logo: { display: "none" }, */
   },
 }));
