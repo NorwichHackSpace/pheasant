@@ -12,8 +12,8 @@ http://localhost:3000
 
 - Make sidebar more configurable. Its pretty good with the pages.js include but could be easier to customise and add more items.
 - Add a app config that can set the default theme.
-- App config needs to save settings to local storage
 - config - app title
+- Use of custom fonts, set as part of Theme
 
 # Customisation
 

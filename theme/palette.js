@@ -1,6 +1,23 @@
 import { red, blue, lightBlue, yellow, green } from "@material-ui/core/colors";
 
+const EAAAcolors = {
+	yellow: "#ffc600",
+	red: "#dd042b",
+}
+
 export const themePalette = {
+  EAAA: {
+    type: "light",
+    background: { paper: "rgb(255, 255, 255)", default: "rgb(245, 245, 245)" },
+    custom: {
+      primary: EAAAcolors.yellow,
+      secondary: EAAAcolors.red,
+      contrastText: "white",
+      backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
+    },
+    contrastText: "black",
+    //Siqnature stype font for headings, sparse use -> jenna_sue_proregular
+  },
   Light: {
     type: "light",
     background: { paper: "rgb(255, 255, 255)", default: "rgb(245, 245, 245)" },
