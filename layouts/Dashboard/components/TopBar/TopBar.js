@@ -8,6 +8,7 @@ import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from "@material-ui/icons/Input";
 
 // Component styles
+import ResponsiveLocalStorageLayout from "../../../../components/ResponsiveGrid/ResponsiveGrid";
 import useStyles from "./styles";
 import ThemeToggler from "../../../../components/ThemeToggler/ThemeToggler";
 
@@ -32,7 +33,6 @@ function Topbar(props) {
         <div className={classes.brandWrapper}>
          <div className={classes.logo}></div>
         </div>
-        
        
      	<ThemeToggler className={classes.themeToggler} / >
         

@@ -26,15 +26,13 @@ export default function ThemeToggler({ className }) {
 
   return (
     <div className={className}>
-      <IconButton title="Change Theme">
-        <TuneOutlinedIcon
+      <IconButton title="Change Theme"
           aria-label="theme-palette"
           aria-controls="theme-menu"
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <PaletteIcon />
-        </TuneOutlinedIcon>
+        <TuneOutlinedIcon />
       </IconButton>
       <Menu
         id="theme-toggler"

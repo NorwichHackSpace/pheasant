@@ -19,12 +19,10 @@ const styles = {
 export default class ResponsiveLocalStorageLayout extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       layouts: JSON.parse(JSON.stringify(originalLayouts)),
     };
   }
-
 
   static get defaultProps() {
     return {
