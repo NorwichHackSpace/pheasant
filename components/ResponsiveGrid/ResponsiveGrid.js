@@ -1,6 +1,6 @@
 import React from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
-
+import LayersClearIcon from '@material-ui/icons/LayersClear';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS("layouts") || {};
 import LocationCard from "../LocationLatLong/LocationCard";
@@ -44,7 +44,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
   render() {
     return (
       <div>
-        <button onClick={() => this.resetLayout()}>Reset Layout</button>
+        <button onClick={() => this.resetLayout()}><LayersClearIcon /></button>
         <ResponsiveReactGridLayout
           className="layout"
           cols={{ lg: 3, md: 3, sm: 1, xs: 1, xxs: 1 }}
