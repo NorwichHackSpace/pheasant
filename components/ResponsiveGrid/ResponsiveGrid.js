@@ -4,6 +4,7 @@ import LayersClearIcon from '@material-ui/icons/LayersClear';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS("layouts") || {};
 import LocationCard from "../LocationLatLong/LocationCard";
+import { getFromLS, saveToLS } from "../LocalStorage/LocalStorage"
 
 /**
  * This layout demonstrates how to sync multiple responsive layouts to localstorage.
@@ -59,29 +60,6 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
           </div>
         </ResponsiveReactGridLayout>
       </div>
-    );
-  }
-}
-
-function getFromLS(key) {
-  let ls = {};
-  if (global.localStorage) {
-    try {
-      ls = JSON.parse(global.localStorage.getItem("rgl-8")) || {};
-    } catch (e) {
-      /*Ignore*/
-    }
-  }
-  return ls[key];
-}
-
-function saveToLS(key, value) {
-  if (global.localStorage) {
-    global.localStorage.setItem(
-      "rgl-8",
-      JSON.stringify({
-        [key]: value,
-      })
     );
   }
 }

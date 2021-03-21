@@ -7,11 +7,13 @@ import Head from "next/head";
 import ThemeProvider from "../theme";
 import ThemeContext from "../theme/ThemeContext";
 import DashboardLayout from "../layouts/Dashboard/Dashboard";
+import { getFromLS } from "../components/LocalStorage/LocalStorage"
+
 export default function MyApp(props) {
   const { publicRuntimeConfig } = getConfig();
   const { Component, pageProps } = props;
-  //Set default theme
-  const [theme, setTheme] = useState(publicRuntimeConfig.defaultTheme);
+  let state = getFromLS("theme") || publicRuntimeConfig.defaultTheme;
+  const [theme, setTheme ] = useState( state ) ;
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.

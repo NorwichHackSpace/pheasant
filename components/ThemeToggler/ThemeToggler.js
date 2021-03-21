@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TuneOutlinedIcon from "@material-ui/icons/TuneOutlined";
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -8,7 +8,9 @@ import PaletteIcon from "@material-ui/icons/Palette";
 import ThemeContext from "../../theme/ThemeContext";
 import { Tooltip, Badge, Toolbar, IconButton, AppBar } from "@material-ui/core";
 import { themePalette } from "../../theme/palette";
+import { saveToLS } from "../LocalStorage/LocalStorage"
 
+//Load selection
 const themes = Object.keys(themePalette);
 
 export default function ThemeToggler({ className }) {
@@ -21,6 +23,9 @@ export default function ThemeToggler({ className }) {
 
   const onChangeTheme = (theme) => {
     setTheme(theme);
+    console.log("Set theme to");
+    console.log(theme);
+    saveToLS("theme", theme );
     setAnchorEl(null);
   };
 
