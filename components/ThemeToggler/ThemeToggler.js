@@ -23,8 +23,6 @@ export default function ThemeToggler({ className }) {
 
   const onChangeTheme = (theme) => {
     setTheme(theme);
-    console.log("Set theme to");
-    console.log(theme);
     saveToLS("theme", theme );
     setAnchorEl(null);
   };

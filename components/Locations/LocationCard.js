@@ -22,13 +22,13 @@ const useStyles = makeStyles({ //TODO: From Theme?
 });
 
 class LocationCard extends React.Component {
-//export default function LocationCard() {
+
 render() {
   const classes = useStyles;
   const { props } = this;
   const locationDefaults = {
 	title: "Your Location",
-	coords: {
+	coords: { //Not used, getting direct from props
 		latitude: 0.000,
 		longitude: 0.000,
 		altitude: 0, //Meters
@@ -42,27 +42,27 @@ render() {
   
   let location = locationDefaults;
 
-  if (!props.isGeolocationEnabled) {
-	//<div>Your browser does not support Geolocation.</div>
-  } else if (!props.isGeolocationAvailable) {
-  	//<div>Geolocation is not enabled.</div>	
-  } else if (props.coords) {
-  	location.coords.latitude = props.coords.latitude;
-  	location.coords.longitude = props.coords.longitude;
-  	location.coords.altitude = props.coords.altitude;
-  }
-
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {location.title}
-          </Typography>
+          </Typography>  
           <Typography variant="body2" color="textSecondary" component="p">
-          
-            <LocationLatLong display={location.display} coords={location.coords} />
-            
+		{ !props.isGeolocationEnabled ? (
+			<div>Your browser does not support Geolocation.</div>
+		   ) : ( !props.isGeolocationAvailable ? (
+				<div>Geolocation is not enabled.</div>	
+			) : ( props.coords ? (
+				<>
+				<LocationLatLong display={location.display} coords={props.coords} />
+				<LocationThreeWords display={location.display} coords={props.coords} />		
+				</>
+			    ) : ( null )
+			)
+		    ) 
+		}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -39,7 +39,7 @@ class LocationLatLong extends React.Component {
 	   ) : null }
        {location.coords.altitude ? (
           <span>
-            , approximately {location.coords.altitude} meters above sea level
+            Approximately {location.coords.altitude.toFixed(1)} meters above sea level
           </span>
         ) : null}
       </div>
