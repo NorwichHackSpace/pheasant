@@ -4,11 +4,12 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-// import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import LocationLatLong from "./LocationLatLong";
 import { geolocated, geoPropTypes } from "react-geolocated";
+
+import LocationLatLong from "./LocationLatLong";
+import LocationThreeWords from "./LocationThreeWords";
 
 const useStyles = makeStyles({ //TODO: From Theme?
   root: {
@@ -42,10 +43,8 @@ render() {
   let location = locationDefaults;
 
   if (!props.isGeolocationEnabled) {
-  	console.warn("Your browser does not support Geolocation.");
 	//<div>Your browser does not support Geolocation.</div>
   } else if (!props.isGeolocationAvailable) {
-	console.warn("Geolocation is not enabled.");
   	//<div>Geolocation is not enabled.</div>	
   } else if (props.coords) {
   	location.coords.latitude = props.coords.latitude;
