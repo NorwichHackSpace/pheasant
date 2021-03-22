@@ -3,7 +3,7 @@ import { WidthProvider, Responsive } from "react-grid-layout";
 import LayersClearIcon from '@material-ui/icons/LayersClear';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS("layouts") || {};
-import LocationCard from "../LocationLatLong/LocationCard";
+import LocationCard from "../Locations/LocationCard";
 import { getFromLS, saveToLS } from "../LocalStorage/LocalStorage"
 
 /**
