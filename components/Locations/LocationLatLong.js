@@ -13,7 +13,6 @@ class LocationLatLong extends React.Component {
     const location = this.props;
     return (
       <div>
-        You are at{" "}
         { location.display.degrees ? (
         	<>
 	        <span className="coordinate">
@@ -27,7 +26,7 @@ class LocationLatLong extends React.Component {
 	   ) : null }
        { location.display.decimals ? (   
 	   	<>
-	        Decimal Lat:{" "}
+	        Lat:{" "}
         	<span className="coordinate">
 	          {location.coords.latitude.toFixed(6)}
 	        </span>
@@ -39,7 +38,7 @@ class LocationLatLong extends React.Component {
 	   ) : null }
        {location.coords.altitude ? (
           <span>
-            Approximately {location.coords.altitude.toFixed(1)} meters above sea level
+            Approximately {location.coords.altitude.toFixed(0)} meters above sea level
           </span>
         ) : null}
       </div>

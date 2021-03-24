@@ -5,7 +5,7 @@ import getConfig from "next/config";
 export default class LocationLatLong extends React.Component {
   constructor() {
   	super();
-  	this.state = { w3wText: [] };
+  	this.state = { w3wText: null };
   }
   
   componentDidMount() {
@@ -15,19 +15,18 @@ export default class LocationLatLong extends React.Component {
 	What3Words.convertTo3wa({ lat: location.coords.latitude, lng: location.coords.longitude})
 		.then( res => { 
 			if (res.country == "GB") {
-				console.log( res.words );
 				this.setState({ w3wText: res.words });
 			}
 		} ) ;
   }
   
   render() {
-	return ( 
+	return ( (this.state.w3wText !== null ?
 		<div>
 			<span className="coordinate" color="secondary">///</span>
 			<span className="coordinate">{this.state.w3wText}</span>
 		</div> 
-		) ;
+		 : null ) );
   }
 }
 

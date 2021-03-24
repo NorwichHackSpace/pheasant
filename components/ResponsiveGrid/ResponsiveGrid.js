@@ -3,7 +3,7 @@ import { WidthProvider, Responsive } from "react-grid-layout";
 import LayersClearIcon from '@material-ui/icons/LayersClear';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const originalLayouts = getFromLS("layouts") || {};
-import LocationCard from "../Locations/LocationCard";
+import LocationGeoCard, { LocationOpenSkyCard  } from "../Locations/LocationCard";
 import { getFromLS, saveToLS } from "../LocalStorage/LocalStorage"
 
 /**
@@ -56,7 +56,13 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
           }
         >
           <div key="a">
-            <LocationCard style={styles} />
+			<LocationGeoCard style={styles} />
+          </div>
+          <div key="b">
+                      <LocationOpenSkyCard title="Anglia One" icao24="406f2b" style={styles} />
+          </div>
+	  <div key="c">
+                      <LocationOpenSkyCard title="Anglia Two" icao24="406ca0" style={styles} />
           </div>
         </ResponsiveReactGridLayout>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import useStyles from "./Dashboard-styles";
-import LocationCard from "../Locations/LocationCard";
+import LocationCard, { LocationCardSpecificed  } from "../Locations/LocationCard";
 import ResponsiveLocalStorageLayout from "../ResponsiveGrid/ResponsiveGrid";
 const Dashboard = () => {
   const classes = useStyles();
