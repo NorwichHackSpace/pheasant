@@ -3,20 +3,24 @@ import PropTypes from "prop-types";
 import axios from 'axios';
 const qs = require('querystring');
 
+//'GB': ('United Kingdom', (-7.57216793459, 49.959999905, 1.68153079591, 58.6350001085)),
+
 export const OpenSky = ({
     suppressLocationOnMount = false,
-    watchPosition = false,
+    watchPosition = true,
     endpoint = 'https://opensky-network.org/api/states/all',
+    watchId = null,
     defaults = {
     	time: null, //Current time is used if omitted  
-	lamin: null, //lower bound for the latitude in decimal degrees
-	lomin: null, //lower bound for the longitude in decimal degrees
-	lamax: null, //upper bound for the latitude in decimal degrees
-	lomax: null, //upper bound for the longitude in decimal degrees
+	lamin: 49.959999905, //lower bound for the latitude in decimal degrees
+	lomin: -7.57216793459, //lower bound for the longitude in decimal degrees
+	lamax: 58.6350001085, //upper bound for the latitude in decimal degrees
+	lomax: 1.68153079591, //upper bound for the longitude in decimal degrees
     },
 }) => (WrappedComponent) => {
     let result = class OpenSky extends Component {
         isCurrentlyMounted = false;
+
         state = {
             coords: null,
             isGeolocationAvailable: false,
@@ -75,10 +79,9 @@ export const OpenSky = ({
             const options = { //props probably has stuff we don't want to pass to URL
             	icao24: this.props.icao24,
             }
-            if ( !options.icao24 ) {
+            if ( 0 && !options.icao24 ) { //TODO: ********* CHANGED THIS FOR EAAA DEMO ONLY ***************
                    this.setState({ errorMsg: { notEnabled: "No aircraft ID.", }, }) ;
             } else {
-
 	            const url = endpoint + '?' + qs.stringify({ ...defaults, ...options })
 		    axios.get(url, {
 			mode: 'cors',
@@ -87,24 +90,38 @@ export const OpenSky = ({
 			referrer: 'no-referrer',
 			referrerPolicy: 'no-referrer',
 		    }).then( resp => {
-	 	        if ( resp.data.states == null || !Array.isArray(resp.data.states) ) { this.onPositionError(); }
-	 	        else { this.onPositionSuccess(resp.data); }; 	        
-                   });
+			if (resp.status == 200) {
+		 	        if ( resp.data.states == null || !Array.isArray(resp.data.states) ) { this.onPositionError(); }
+		 	        else { this.onPositionSuccess(resp.data); }; 	        
+			};
+                   }).catch(function (error) {
+				console.warn("Error fetching OpenSky data for " + options.icao24 );
+		    		if ( watchPosition && (typeof this !== 'undefined') ) {
+		    			console.warn("Cancelling timer " + this.timeoutID);
+					clearInterval(this.timeoutID);
+				};
+		    	});
              }  
         };
 
         componentDidMount() {
             this.isCurrentlyMounted = true;
             if (!suppressLocationOnMount) {
-                this.getLocation();
+		if ( watchPosition ) {
+			this.timeoutID = setInterval(() => {
+				this.getLocation();
+			} , 2000);
+		} else {
+                	this.getLocation();
+                }
             }
         }
 
         componentWillUnmount() {
             this.isCurrentlyMounted = false;
             if (watchPosition) {
-                geolocationProvider.clearWatch(this.watchId);
-            }
+                clearInterval(this.timeoutID);
+            } 
         }
 
         render() {

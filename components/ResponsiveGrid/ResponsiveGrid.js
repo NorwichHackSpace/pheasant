@@ -6,10 +6,6 @@ const originalLayouts = getFromLS("layouts") || {};
 import LocationGeoCard, { LocationOpenSkyCard  } from "../Locations/LocationCard";
 import { getFromLS, saveToLS } from "../LocalStorage/LocalStorage"
 
-/**
- * This layout demonstrates how to sync multiple responsive layouts to localstorage.
- */
-
 const styles = {
   main: {
     backgroundColor: "#ffffff",
@@ -63,6 +59,9 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
           </div>
 	  <div key="c">
                       <LocationOpenSkyCard title="Anglia Two" icao24="406ca0" style={styles} />
+          </div>
+          <div key="d">
+                      <LocationOpenSkyCard title="Watch Test" icao24="" style={styles} />
           </div>
         </ResponsiveReactGridLayout>
       </div>
