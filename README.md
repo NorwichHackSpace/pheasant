@@ -20,3 +20,10 @@ http://localhost:3000
 - Theme settings: theme\palette.js
 - Sidebar: layouts\Dashboard\components\Sidebar\Sidebar.js
 - Links in sidebar: layouts\Dashboard\components\Sidebar\pages.js
+
+# Resources
+
+- Excellent list of nextjs examples:
+- Material UI: https://material-ui.com/getting-started/usage/
+- Material UI design principes: https://material.io/design
+- Material UI design study: https://material.io/design/material-studies/rally.html#motion
