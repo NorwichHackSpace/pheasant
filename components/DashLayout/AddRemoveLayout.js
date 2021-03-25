@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
+import CloseIcon from '@material-ui/icons/Close';
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
 import LocationCard from "../Locations/LocationCard";
 // import styles from "./styles.css";
@@ -11,18 +13,25 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 /**
  * This layout demonstrates how to use a grid with a dynamic number of elements.
  */
+
+const useStyles = makeStyles({
+  //TODO: From Theme?
+});
+ 
 export default class AddRemoveLayout extends React.Component {
+
   static defaultProps = {
     className: "layout",
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
     rowHeight: 100,
     isDraggable: true,
     draggableHandle: ".grid-drag-handle",
+    containerPadding: '0',
   };
 
   constructor(props) {
     super(props);
-
+   
     this.state = {
       items: [0, 1, 2, 3, 4].map(function (i, key, list) {
         return {
@@ -41,32 +50,28 @@ export default class AddRemoveLayout extends React.Component {
   }
 
   createElement(el) {
-    const removeStyle = {
-      position: "absolute",
-      right: "2px",
-      top: 0,
+    const panelTitle = {
       cursor: "pointer",
+      textAlign: 'right', //Working around the requirements of the Div needing a heigh
+      backgroundColor: 'red', //TODO: From theme
+    };
+    const panelWrapper = {
     };
     const i = el.i;
 
     return (
-      <div key={i} data-grid={el} >
-        <div style={{height: '20px', backgroundColor: 'red'}} className="grid-drag-handle" >
-     	   <span
-	          className="remove"
-	          style={removeStyle}
-	          onClick={this.onRemoveItem.bind(this, i)}
-	        >X</span>        
+      <div key={i} data-grid={el} style={panelWrapper}>
+        <div style={panelTitle} >
+	        <DragIndicatorIcon className="grid-drag-handle" />
+	        <CloseIcon onClick={this.onRemoveItem.bind(this, i)} />
         </div>
-        <LocationCard style={this.props.styles} 
+        <LocationCard style={this.props.styles} className="remove"
          />
       </div>
     );
   }
 
   onAddItem() {
-    /*eslint no-console: 0*/
-    // console.log("adding", "n" + this.state.newCounter);
     this.setState({
       // Add a new item. It must have a unique key!
       items: this.state.items.concat({

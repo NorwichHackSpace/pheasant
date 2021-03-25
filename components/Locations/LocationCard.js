@@ -53,7 +53,6 @@ class LocationCard extends React.Component {
 
     return (
       <Card className={classes.root}>
-        <CardActionArea>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {location.title}
@@ -81,7 +80,6 @@ class LocationCard extends React.Component {
               ) : null}
             </Typography>
           </CardContent>
-        </CardActionArea>
         <CardActions>
           <Button size="medium" color="primary">
             Map
