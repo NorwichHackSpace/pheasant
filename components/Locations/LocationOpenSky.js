@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import axios from 'axios';
 const qs = require('querystring');
 
-//'GB': ('United Kingdom', (-7.57216793459, 49.959999905, 1.68153079591, 58.6350001085)),
+//  https://opensky-network.org/apidoc/rest.html
 
 export const OpenSky = ({
     suppressLocationOnMount = false,
@@ -42,7 +42,7 @@ export const OpenSky = ({
         };
 
         onPositionSuccess = (response) => {
-    	    const aircraft = { //https://opensky-network.org/apidoc/rest.html#all-state-vectors
+    	    const aircraft = { 
     	    		icao24: response.states[0][0], //Unique ICAO 24-bit address of the transponder 
     	    		callsign: response.states[0][1], //Callsign of the vehicle. Can be null if no callsign has been received.
     	    		origin_country: response.states[0][2], //Country name inferred from the ICAO 24-bit address.

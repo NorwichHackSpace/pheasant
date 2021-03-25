@@ -16,6 +16,8 @@ export default class AddRemoveLayout extends React.Component {
     className: "layout",
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
     rowHeight: 100,
+    isDraggable: true,
+    draggableHandle: ".grid-drag-handle",
   };
 
   constructor(props) {
@@ -48,15 +50,16 @@ export default class AddRemoveLayout extends React.Component {
     const i = el.i;
 
     return (
-      <div key={i} data-grid={el}>
-        <LocationCard style={this.props.styles} />
-        <span
-          className="remove"
-          style={removeStyle}
-          onClick={this.onRemoveItem.bind(this, i)}
-        >
-          x
-        </span>
+      <div key={i} data-grid={el} >
+        <div style={{height: '20px', backgroundColor: 'red'}} className="grid-drag-handle" >
+     	   <span
+	          className="remove"
+	          style={removeStyle}
+	          onClick={this.onRemoveItem.bind(this, i)}
+	        >X</span>        
+        </div>
+        <LocationCard style={this.props.styles} 
+         />
       </div>
     );
   }
