@@ -12,6 +12,7 @@ import LocationLatLong from "./LocationLatLong";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    minHeight: 210,
   },
   main: {
     backgroundColor: "#ffffff",

@@ -7,6 +7,8 @@ import Head from "next/head";
 import ThemeProvider from "../theme";
 import ThemeContext from "../theme/ThemeContext";
 import DashboardLayout from "../layouts/Dashboard/Dashboard";
+
+import "../components/DashLayout/styles.css";
 export default function MyApp(props) {
   const { publicRuntimeConfig } = getConfig();
   const { Component, pageProps } = props;
