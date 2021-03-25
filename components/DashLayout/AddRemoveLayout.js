@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
+
 import CloseIcon from '@material-ui/icons/Close';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
@@ -51,9 +52,9 @@ export default class AddRemoveLayout extends React.Component {
 
   createElement(el) {
     const panelTitle = {
+      position: 'absolute',
       cursor: "pointer",
-      textAlign: 'right', //Working around the requirements of the Div needing a heigh
-      backgroundColor: 'red', //TODO: From theme
+      right: '0px', 
     };
     const panelWrapper = {
     };

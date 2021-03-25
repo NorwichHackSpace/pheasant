@@ -13,3 +13,4 @@ Client Q&A
 ** Any digital material (jpegs/png or example pdfs) that can be shared for development
 * Hosting (as an end aim) on excisting or new infostructure?
 ** Current (public) website using Bootstrap 4, Designed by Optimad Design Lincolnshire
+** What current operations / administration software is used
