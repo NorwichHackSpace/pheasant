@@ -4,6 +4,8 @@ import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import PageviewTwoToneIcon from "@material-ui/icons/PageviewTwoTone";
 import ReportProblemTwoToneIcon from "@material-ui/icons/ReportProblemTwoTone";
 
+//import pages from "./pages";
+
 const pages = [
   {
     title: "Dashboard",

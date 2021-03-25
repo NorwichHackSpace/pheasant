@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-
+/*
 export default function MiniDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -162,3 +162,4 @@ export default function MiniDrawer(props) {
     </div>
   );
 }
+*/
