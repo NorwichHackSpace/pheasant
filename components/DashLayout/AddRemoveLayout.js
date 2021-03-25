@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
 
-import LocationCard from "../LocationLatLong/LocationCard";
+import LocationCard from "../Locations/LocationCard";
 // import styles from "./styles.css";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
