@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import _ from "lodash";
 //Components
 import LocationGeoCard, { LocationOpenSkyCard  } from "../Locations/LocationCard";
+import CallCard, { CallCardTest } from "../CallCard/CallCard";
 //Icons
 import LayersClearIcon from '@material-ui/icons/LayersClear';
 import CloseIcon from '@material-ui/icons/Close';
@@ -30,8 +31,8 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 	{ card: LocationOpenSkyCard, props: {title:"Anglia One", icao24:"406f2b", style:{styles} } },
 	{ card: LocationOpenSkyCard, props: {title:"Anglia Two", icao24:"406ca0", style:{styles} } }, 
 	{ card: LocationOpenSkyCard, props: {title:"Watch Test", icao24:"", style:{styles} } },
-  	{ card: LocationGeoCard, props: {}, options: { isDragable: true, isCloseable: true, } },		
-	{ card: LocationOpenSkyCard, props: {title:"Foo Test", icao24:"", style:{styles} } }
+	{ card: CallCard, props: { style:{styles} }, options: { isDragable: true, isCloseable: false, } },
+	{ card: CallCardTest, props: { style:{styles} }, options: { isDragable: true, isCloseable: false, } }
     ];
     ////
     this.state = {
