@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { WidthProvider, Responsive } from "react-grid-layout";
-import _ from "lodash";
+import _ from "lodash"; // https://www.geeksforgeeks.org/lodash-_-reject-method/?ref=rp
 
 import CloseIcon from '@material-ui/icons/Close';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
