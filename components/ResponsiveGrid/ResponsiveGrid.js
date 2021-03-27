@@ -45,7 +45,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
     return {
       className: "layout",
       cols: { lg: 3, md: 3, sm: 1, xs: 1, xxs: 1 },
-      rowHeight: 250, //Was 300?
+      rowHeight: 225, //Was 300?
       isDraggable: true,
       draggableHandle: ".grid-drag-handle",
       containerPadding: '5',
@@ -65,7 +65,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
 		        { "w": 1, "h": 1, "x": 2, "y": 1, "i": "6", "moved": false, "static": false }
 		    ],
 		    "xxs": [
-        		{ "w": 1, "h": 1, "x": 0, "y": 0, "i": "1", "moved": false, "static": false },
+        		{ "w": 1, "h": 1, "x": 0, "y": 0, "i": "1", "moved": false, "static": true },
 		        { "w": 1, "h": 1, "x": 0, "y": 1, "i": "2", "moved": false, "static": false },
 		        { "w": 1, "h": 1, "x": 0, "y": 2, "i": "3", "moved": false, "static": false },
 		        { "w": 1, "h": 1, "x": 0, "y": 3, "i": "4", "moved": false, "static": false },
@@ -98,11 +98,13 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
       style: {
 	      position: 'absolute',
 	      cursor: "pointer",
-	      right: '0px', 
+	      right: '0px',
+	      //'background-color': 'yellow', 
       }
     };
     const panelWrapper = {
     	style: {
+    	 //'background-color': 'red',
     	}
     };
     const defaultOptions = {
@@ -112,7 +114,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
     options = {...defaultOptions, ...options}
     let key = foo;
     return (
-      <div key={key} style={panelWrapper}>
+      <div key={key} style={panelWrapper.style}>
         <div style={panelControl.style} >
 	        {options.isDragable ? (<DragIndicatorIcon className="grid-drag-handle" />) : null}
 	        {options.isCloseable ? (<CloseIcon onClick={this.onRemoveItem.bind(this, key)} />) : null}

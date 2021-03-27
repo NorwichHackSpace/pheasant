@@ -1,4 +1,4 @@
-import React, { Linking } from "react";
+import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -10,16 +10,20 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+//    maxWidth: 345,
+    minHeight: 210,
+  },  
+  main: {
+    backgroundColor: "#ffffff",
+    height: "inherit",
   },
 });
 
 export default function CallCard() {
   const classes = useStyles();
-
+  console.log(classes);
   return (
     <Card className={classes.root}>
-      <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Norfolk and Norwich University Hospital
@@ -28,7 +32,7 @@ export default function CallCard() {
             Colney Lane Norwich NR4 7UY
           </Typography>
         </CardContent>
-      </CardActionArea>
+     <CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
           Call: 01603 286286
@@ -37,15 +41,17 @@ export default function CallCard() {
           Message
         </Button>
       </CardActions>
+    </CardActionArea>
     </Card>
   );
 }
 
-export function CallCardTest() {
-  const classes = useStyles();
 
+export const CallCardTest = () => { 
+
+  const classes = useStyles();
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <CardContent>
          <Typography gutterBottom variant="h5" component="h2">
            Alan Childs
@@ -54,6 +60,7 @@ export function CallCardTest() {
            Lilac Cottage, Mere Road
          </Typography>
        </CardContent>
+     <CardActionArea>
       <CardActions>
         <Button size="small" color="primary"
 	  onClick={ ()=>{window.location = ("tel:01953483533"); }}
@@ -65,6 +72,9 @@ export function CallCardTest() {
           Message
         </Button>
       </CardActions>
+     </CardActionArea>
     </Card>
   );
 }
+
+

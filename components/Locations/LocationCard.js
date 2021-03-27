@@ -15,7 +15,7 @@ import { OpenSky } from "./LocationOpenSky";
 const useStyles = makeStyles({
   //TODO: From Theme?
   root: {
-    maxWidth: 345,
+//    maxWidth: 345,
     minHeight: 210,
   },
   main: {
@@ -24,10 +24,14 @@ const useStyles = makeStyles({
   },
 });
 
-class LocationCard extends React.Component {
-  render() {
-    const classes = useStyles;
-    const { props } = this;
+//class LocationCard extends React.Component {
+//  render() {
+export const LocationCard = (props) => { 
+
+    //const { props } = this;
+    const classes = useStyles();
+
+    console.log(props);
 
     const locationDefaults = {
       title: "Your Location",
@@ -87,7 +91,7 @@ class LocationCard extends React.Component {
         </CardActions>
       </Card>
     );
-  }
+//  }
 }
 
 export const LocationOpenSkyCard = OpenSky({ icao24: null })(LocationCard);
