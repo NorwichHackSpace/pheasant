@@ -55,14 +55,11 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
     ////getFromLS("responsiveGridCards") || 
     let originalCards = getFromLS("responsiveGridCards") || this.cards.map( (obj, index) => ({i: index+1, ...obj}) ); //Add Index on first state;
     let originalLayouts = getFromLS("layouts") || { };
-    console.log("ResponsiveGridLS ", originalCards);
     this.state = {
       //layouts: JSON.parse(JSON.stringify(originalLayouts)),
       layouts: originalLayouts,
       displayedCards: originalCards, //Add Index on first state
     };
-    console.log("Layouts ",this.state.layouts);
-    console.log("Cards ",this.state.displayedCards);
   }
 
   static get defaultProps() { //TODO: Put this up in the MUI styles
@@ -77,9 +74,8 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
   }
   
   resetLayout() {
-    this.setState({ 
-    		displayedCards: this.cards.map( (obj, index) => ({i: index+1, ...obj}) ),
-    		layouts: { 
+     let displayedCards = this.cards.map( (obj, index) => ({i: index+1, ...obj}) );
+     let layouts = { 
 		    "lg": [
 		        { "w": 1, "h": 1, "x": 0, "y": 0, "i": "1", "moved": false, "static": false },
 		        { "w": 1, "h": 1, "x": 1, "y": 0, "i": "2", "moved": false, "static": false },
@@ -96,8 +92,10 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
 		        { "w": 1, "h": 1, "x": 0, "y": 5, "i": "5", "moved": false, "static": false },
 		        { "w": 1, "h": 1, "x": 0, "y": 4, "i": "6", "moved": false, "static": false }
 		    ],
-		}	
-     });
+		};	
+     
+    this.onLayoutChange("", layouts);
+    this.onCardsChange(displayedCards)
   }
 
   onLayoutChange(layout, layouts) {
@@ -112,18 +110,25 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
     //console.log(layouts);
   }
   
-  onRemoveItem(key) {
-    console.log("removing", key);
-    let displayedCards = _.reject(this.state.displayedCards, { i : key });
+  onCardsChange(displayedCards) {
     saveToLS("responsiveGridCards", displayedCards);
     let layouts= this.state.layouts;
     saveToLS("layouts", layouts);    
-    this.setState({ displayedCards: displayedCards });
-    let debug = getFromLS("responsiveGridCards"); 
-    console.log(debug);
+    this.setState({ displayedCards: displayedCards });  	
+  }
+  
+  onRemoveItem(key) {
+    console.log("removing", key);
+    let displayedCards = _.reject(this.state.displayedCards, { i : key });
+    this.onCardsChange(displayedCards);
   }
   
   createDraggable = (key, options) => (WrappedComponent, WrappedProps) => {
+
+    if(typeof WrappedComponent == 'undefined') { 
+    	WrappedComponent = this.cards[key-1].card ; 
+    }
+    
     const {classes} = this.props;
     const defaultOptions = {
 	isDragable: true,

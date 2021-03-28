@@ -13,8 +13,10 @@ export function getFromLS(key) {
 export function saveToLS(key, value) {
   let oldStore = JSON.parse(global.localStorage.getItem("rgl-8")) || {};
   let newStore = {[key]: value};
+  console.log("newStore ", newStore); //Works, contains cards
   newStore = {...oldStore,...newStore };
   newStore = JSON.stringify(newStore);
+  //console.log("newStore Strung ", newStore);
   if (global.localStorage) {
     global.localStorage.setItem(
       "rgl-8",
