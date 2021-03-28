@@ -11,12 +11,14 @@ export function getFromLS(key) {
 }
 
 export function saveToLS(key, value) {
+  let oldStore = JSON.parse(global.localStorage.getItem("rgl-8")) || {};
+  let newStore = {[key]: value};
+  newStore = {...oldStore,...newStore };
+  newStore = JSON.stringify(newStore);
   if (global.localStorage) {
     global.localStorage.setItem(
       "rgl-8",
-      JSON.stringify({
-        [key]: value,
-      })
+      newStore
     );
   }
 }

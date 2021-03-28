@@ -10,7 +10,6 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   root: {
-//    maxWidth: 345,
     minHeight: 210,
   },  
   main: {
@@ -21,7 +20,7 @@ const useStyles = makeStyles({
 
 export default function CallCard() {
   const classes = useStyles();
-  console.log(classes);
+  //console.log(classes);
   return (
     <Card className={classes.root}>
         <CardContent>
@@ -47,6 +46,7 @@ export default function CallCard() {
 }
 
 
+//TODO: Console log says there is a button within a button here?
 export const CallCardTest = () => { 
 
   const classes = useStyles();
@@ -63,8 +63,7 @@ export const CallCardTest = () => {
      <CardActionArea>
       <CardActions>
         <Button size="small" color="primary"
-	  onClick={ ()=>{window.location = ("tel:01953483533"); }}
-	 >
+	  onClick={ ()=>{window.location = ("tel:01953483533"); }}>
 	 Call: 01953 483533
         </Button>
         <Button size="small" color="primary"

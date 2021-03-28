@@ -2,9 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { WidthProvider, Responsive } from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-const originalLayouts = getFromLS("layouts") || {};
 import { getFromLS, saveToLS } from "../LocalStorage/LocalStorage"
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import _ from "lodash";
 //Components
 import LocationGeoCard, { LocationOpenSkyCard  } from "../Locations/LocationCard";
@@ -15,33 +14,58 @@ import CloseIcon from '@material-ui/icons/Close';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
 const styles = {
+  root: {},
   main: {
     backgroundColor: "#ffffff",
     height: "inherit",
   },
+  panelControl: {
+    position: 'absolute',
+    cursor: "pointer",
+    right: '0px',
+    //'background-color': 'yellow', 
+  },
+  panelWrapper: {
+    	 //'background-color': 'red',
+  },
+  hiddenIcon: {
+    visibility: 'hidden',
+  },
 };
 
-export default class ResponsiveLocalStorageLayout extends React.PureComponent {
+class ResponsiveLocalStorageLayout extends React.PureComponent {
   constructor(props) {
-      super(props);
+    super(props);
     ///
-    this.cards = [ 
-        //Note that setting a card {isDragable: false} doesn't make it static.
+    this.cards = [
+        /* 
+         * This is only used on first page, or when the user clicks the 'reset layout' button.
+         * Also note that setting a card {isDragable: false} doesn't make it static.
+         */
       	{ card: LocationGeoCard, options: { isDragable: true, isCloseable: false, } },
-	{ card: LocationOpenSkyCard, props: {title:"Anglia One", icao24:"406f2b", style:{styles} } },
-	{ card: LocationOpenSkyCard, props: {title:"Anglia Two", icao24:"406ca0", style:{styles} } }, 
-	{ card: LocationOpenSkyCard, props: {title:"Watch Test", icao24:"", style:{styles} } },
-	{ card: CallCard, props: { style:{styles} }, options: { isDragable: true, isCloseable: false, } },
-	{ card: CallCardTest, props: { style:{styles} }, options: { isDragable: true, isCloseable: false, } }
+//	{ card: LocationOpenSkyCard, props: {title:"Anglia One", icao24:"406f2b", style:{styles} } },
+//	{ card: LocationOpenSkyCard, props: {title:"Anglia Two", icao24:"406ca0", style:{styles} } }, 
+//	{ card: LocationOpenSkyCard, props: {title:"Lincs & Notts Air Ambulance", icao24:"40709d", style:{styles} } },
+//	{ card: LocationOpenSkyCard, props: {title:"Scottish Air Ambulance", icao24:"406d68", style:{styles} } },
+//	{ card: LocationOpenSkyCard, props: {title:"Watch Test", icao24:"", style:{styles} } },
+	{ card: CallCard, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } },
+	{ card: CallCardTest, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } }
     ];
-    ////
+    
+    ////getFromLS("responsiveGridCards") || 
+    let originalCards = getFromLS("responsiveGridCards") || this.cards.map( (obj, index) => ({i: index+1, ...obj}) ); //Add Index on first state;
+    let originalLayouts = getFromLS("layouts") || { };
+    console.log("ResponsiveGridLS ", originalCards);
     this.state = {
-      layouts: JSON.parse(JSON.stringify(originalLayouts)),
-      displayedCards: this.cards.map( (obj, index) => ({i: index+1, ...obj}) ), //Add Index on first state
+      //layouts: JSON.parse(JSON.stringify(originalLayouts)),
+      layouts: originalLayouts,
+      displayedCards: originalCards, //Add Index on first state
     };
+    console.log("Layouts ",this.state.layouts);
+    console.log("Cards ",this.state.displayedCards);
   }
 
-  static get defaultProps() {
+  static get defaultProps() { //TODO: Put this up in the MUI styles
     return {
       className: "layout",
       cols: { lg: 3, md: 3, sm: 1, xs: 1, xxs: 1 },
@@ -90,34 +114,28 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
   
   onRemoveItem(key) {
     console.log("removing", key);
-    this.setState({ displayedCards: _.reject(this.state.displayedCards, { i : key }) });
+    let displayedCards = _.reject(this.state.displayedCards, { i : key });
+    saveToLS("responsiveGridCards", displayedCards);
+    let layouts= this.state.layouts;
+    saveToLS("layouts", layouts);    
+    this.setState({ displayedCards: displayedCards });
+    let debug = getFromLS("responsiveGridCards"); 
+    console.log(debug);
   }
   
-  createDraggable = (foo, options) => (WrappedComponent, WrappedProps) => {
-    const panelControl = {
-      style: {
-	      position: 'absolute',
-	      cursor: "pointer",
-	      right: '0px',
-	      //'background-color': 'yellow', 
-      }
-    };
-    const panelWrapper = {
-    	style: {
-    	 //'background-color': 'red',
-    	}
-    };
+  createDraggable = (key, options) => (WrappedComponent, WrappedProps) => {
+    const {classes} = this.props;
     const defaultOptions = {
 	isDragable: true,
      	isCloseable: true,
     };
     options = {...defaultOptions, ...options}
-    let key = foo;
+    /* <CloseIcon className={hiddenIcon} /> */
     return (
-      <div key={key} style={panelWrapper.style}>
-        <div style={panelControl.style} >
+      <div key={key} className={classes.panelWrapper}>
+        <div className={classes.panelControl} >
 	        {options.isDragable ? (<DragIndicatorIcon className="grid-drag-handle" />) : null}
-	        {options.isCloseable ? (<CloseIcon onClick={this.onRemoveItem.bind(this, key)} />) : null}
+	        {options.isCloseable ? (<CloseIcon onClick={ this.onRemoveItem.bind(this, key) } /> ) : null}
         </div>
         <WrappedComponent {...this.state} {...this.props} {...WrappedProps} />
       </div>
@@ -125,6 +143,7 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
   }
   
   render() {
+    const {classes} = this.props;
     return (
       <div>
         <button onClick={() => this.resetLayout()}><LayersClearIcon /></button>
@@ -144,3 +163,5 @@ export default class ResponsiveLocalStorageLayout extends React.PureComponent {
     );
   }
 }
+
+export default withStyles(styles)(ResponsiveLocalStorageLayout); //'Higher-order component' method of injecting MaterialUI themeing.

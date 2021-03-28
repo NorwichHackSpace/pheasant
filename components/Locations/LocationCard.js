@@ -15,7 +15,6 @@ import { OpenSky } from "./LocationOpenSky";
 const useStyles = makeStyles({
   //TODO: From Theme?
   root: {
-//    maxWidth: 345,
     minHeight: 210,
   },
   main: {
@@ -30,8 +29,6 @@ export const LocationCard = (props) => {
 
     //const { props } = this;
     const classes = useStyles();
-
-    console.log(props);
 
     const locationDefaults = {
       title: "Your Location",
