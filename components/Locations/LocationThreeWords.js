@@ -1,14 +1,20 @@
 import React from "react";
 import * as What3Words from "@what3words/api"; 
 import getConfig from "next/config";
+import { withStyles } from "@material-ui/core/styles";
 
-export default class LocationLatLong extends React.Component {
+const styles = (theme) => ({
+  naming: {
+    'color': theme.palette.custom.primary,
+  },
+});
+
+class LocationLatLong extends React.Component {
   constructor() {
   	super();
-  	this.state = { w3wText: null };
+  	this.state = { w3wWords: null, w3wPlace: null };
   	this.isCurrentlyMounted = false;
   }
-  
   
   callAPI = () => {
 	if (this.isCurrentlyMounted) {
@@ -21,7 +27,7 @@ export default class LocationLatLong extends React.Component {
 			.then( res => { 
 				//if ( res.country == "GB" ) {
 					this.lastLat = location.coords.latitude, this.lastLon = location.coords.longitude;
-					this.setState({ w3wText: res.words });
+					this.setState({ w3wWords: res.words, w3wPlace: res.nearestPlace });
 				//}
 			} ) ;
 	 	}
@@ -38,15 +44,19 @@ export default class LocationLatLong extends React.Component {
   }
   
   render() {
+	const {classes} = this.props;
 	this.callAPI();
-	return ( (this.state.w3wText !== null ?
+	return ( (this.state.w3wWords !== null ?
 		<div>
-			<span className="coordinate" color="secondary">///</span>
-			<span className="coordinate">{this.state.w3wText}</span>
+			<span className="coordinate">{this.state.w3wPlace}</span><br />
+			<span className={classes.naming}>///</span>
+			<span className="coordinate">{this.state.w3wWords}</span>		
 		</div> 
 		 : null ) );
   }
 }
+
+export default withStyles(styles)(LocationLatLong); //'Higher-order component' method of injecting MaterialUI themeing.
 
 /*
 export { W3W_REGEX } from './constants';

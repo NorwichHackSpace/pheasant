@@ -16,7 +16,6 @@ export const themePalette = {
       backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
     },
     contrastText: "black",
-    //Siqnature stype font for headings, sparse use -> jenna_sue_proregular
   },
   Light: {
     type: "light",

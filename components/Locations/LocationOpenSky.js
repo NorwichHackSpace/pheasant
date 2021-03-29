@@ -12,6 +12,7 @@ export const OpenSky = ({
     watchId = null,
     defaults = {
     	time: null, //Current time is used if omitted  
+    	//TODO: Bounds set to cover all UK. Can possibly setup to cover East Anglia only to improve timings.
 	lamin: 49.959999905, //lower bound for the latitude in decimal degrees
 	lomin: -7.57216793459, //lower bound for the longitude in decimal degrees
 	lamax: 58.6350001085, //upper bound for the latitude in decimal degrees
@@ -89,13 +90,14 @@ export const OpenSky = ({
 			headers: {},
 			referrer: 'no-referrer',
 			referrerPolicy: 'no-referrer',
+			timeout: 1000,
 		    }).then( resp => {
 			if (resp.status == 200) {
 		 	        if ( resp.data.states == null || !Array.isArray(resp.data.states) ) { this.onPositionError(); }
 		 	        else { this.onPositionSuccess(resp.data); }; 	        
 			};
                    }).catch(function (error) {
-				console.warn("Error fetching OpenSky data for " + options.icao24 );
+				console.warn("Fetching OpenSky data for " + options.icao24 + " gave", error );
 		    		if ( watchPosition && (typeof this !== 'undefined') ) {
 		    			console.warn("Cancelling timer " + this.timeoutID);
 					clearInterval(this.timeoutID);
@@ -107,13 +109,12 @@ export const OpenSky = ({
         componentDidMount() {
             this.isCurrentlyMounted = true;
             if (!suppressLocationOnMount) {
+	        this.getLocation();
 		if ( watchPosition ) {
 			this.timeoutID = setInterval(() => {
 				this.getLocation();
-			} , 2000);
-		} else {
-                	this.getLocation();
-                }
+			} , 10000);
+		}
             }
         }
 
@@ -135,7 +136,7 @@ export const OpenSky = ({
     };
     return result;
 };
-
+/*
 export const OpenskyPropTypes = {
     coords: PropTypes.shape({
         latitude: PropTypes.number,
@@ -154,3 +155,4 @@ export const OpenskyPropTypes = {
     }),
     watchPosition: PropTypes.bool,
 };
+*/

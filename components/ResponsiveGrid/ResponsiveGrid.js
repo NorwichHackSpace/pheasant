@@ -5,69 +5,19 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 import { getFromLS, saveToLS } from "../LocalStorage/LocalStorage"
 import { withStyles } from "@material-ui/core/styles";
 import _ from "lodash";
-//Components
-import LocationGeoCard, { LocationOpenSkyCard  } from "../Locations/LocationCard";
-import CallCard, { CallCardTest } from "../CallCard/CallCard";
+//Settings
+import styles from "./styles";
+import defaults from "./defaults";
 //Icons
 import LayersClearIcon from '@material-ui/icons/LayersClear';
 import CloseIcon from '@material-ui/icons/Close';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
-const styles = {
-  root: {},
-  main: {
-    backgroundColor: "#ffffff",
-    height: "inherit",
-  },
-  panelControl: {
-    position: 'absolute',
-    cursor: "pointer",
-    right: '0px',
-    //'background-color': 'yellow', 
-  },
-  panelWrapper: {
-    	 //'background-color': 'red',
-  },
-  hiddenIcon: {
-    visibility: 'hidden',
-  },
-};
-
 class ResponsiveLocalStorageLayout extends React.PureComponent {
   constructor(props) {
     super(props);
-    /* 
-     * These 'default's are only used on first load, or when the user clicks the 'reset layout' button.
-     */
-    this.defaultLayouts = { 
-	    "lg": [
-	        { "w": 1, "h": 1, "x": 0, "y": 0, "i": "1", "moved": false, "static": false },
-	        { "w": 1, "h": 1, "x": 1, "y": 0, "i": "2", "moved": false, "static": false },
-		{ "w": 1, "h": 1, "x": 2, "y": 0, "i": "3", "moved": false, "static": false },
-		{ "w": 1, "h": 1, "x": 0, "y": 1, "i": "4", "moved": false, "static": false },
-	        { "w": 1, "h": 1, "x": 1, "y": 1, "i": "5", "moved": false, "static": false },
-	        { "w": 1, "h": 1, "x": 2, "y": 1, "i": "6", "moved": false, "static": false }
-	    ],
-	    "xxs": [
-        	{ "w": 1, "h": 1, "x": 0, "y": 0, "i": "1", "moved": false, "static": true },
-	        { "w": 1, "h": 1, "x": 0, "y": 1, "i": "2", "moved": false, "static": false },
-	        { "w": 1, "h": 1, "x": 0, "y": 2, "i": "3", "moved": false, "static": false },
-	        { "w": 1, "h": 1, "x": 0, "y": 3, "i": "4", "moved": false, "static": false },
-	        { "w": 1, "h": 1, "x": 0, "y": 5, "i": "5", "moved": false, "static": false },
-	        { "w": 1, "h": 1, "x": 0, "y": 4, "i": "6", "moved": false, "static": false }
-	    ],
-	};	
-    this.defaultCards = [ 
-    	//Disabled the OpenSkyCards during Dev as they use a lot of API calls. ~Alan
-      	{ card: LocationGeoCard, options: { isDragable: true, isCloseable: false, } },
-	{ card: LocationOpenSkyCard, props: {title:"Anglia One", icao24:"406f2b", style:{styles} } },
-	{ card: LocationOpenSkyCard, props: {title:"Anglia Two", icao24:"406ca0", style:{styles} } }, 
-	{ card: LocationOpenSkyCard, props: {title:"Lincs & Notts Air Ambulance", icao24:"40709d", style:{styles} } },
-	{ card: LocationOpenSkyCard, props: {title:"Scottish Air Ambulance", icao24:"406d68", style:{styles} } },
-	{ card: LocationOpenSkyCard, props: {title:"Watch Test", icao24:"", style:{styles} } },
-	{ card: CallCard, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } },
-	{ card: CallCardTest, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } }
-    ];
+    this.defaultLayouts = defaults.Layouts; 
+    this.defaultCards = defaults.Cards;
     
     /*
      * TODO:
@@ -128,7 +78,9 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
   createDraggable = (key, options) => (WrappedComponent, WrappedProps) => {
 
     if(typeof WrappedComponent == 'undefined') { //We can't store the function in JSON-based storage, so recall it by ref
-    	WrappedComponent = this.defaultCards[key-1].card ; 
+       if (typeof this.defaultCards[key-1] !== 'undefined') { //This *shouldn't* be undefined unless we messed with defaultCards
+	    	WrappedComponent = this.defaultCards[key-1].card ; 
+	} else {resetLayout(); return;} //Fall over and regenerate the layout. The site looks a bit clunky while it resets.
     }
     const {classes} = this.props;
     const defaultOptions = {
@@ -155,7 +107,7 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
   render() {
     const {classes} = this.props;
     return (
-      <div>
+      <div className={classes.root}>
         <button onClick={() => this.resetLayout()}><LayersClearIcon /></button>
         <ResponsiveReactGridLayout
           {...this.props}

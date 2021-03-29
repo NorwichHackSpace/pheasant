@@ -12,8 +12,7 @@ import LocationLatLong from "./LocationLatLong";
 import LocationThreeWords from "./LocationThreeWords";
 import { OpenSky } from "./LocationOpenSky";
 
-const useStyles = makeStyles({
-  //TODO: From Theme?
+const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: 210,
   },
@@ -21,10 +20,8 @@ const useStyles = makeStyles({
     backgroundColor: "#ffffff",
     height: "inherit",
   },
-});
+}));
 
-//class LocationCard extends React.Component {
-//  render() {
 export const LocationCard = (props) => { 
 
     //const { props } = this;
@@ -39,7 +36,6 @@ export const LocationCard = (props) => {
         altitude: 0, //Meters
       },
       display: {
-        //Preferable to set all true as default
         degrees: true,
         decimals: true,
         what3words: true,
@@ -88,7 +84,6 @@ export const LocationCard = (props) => {
         </CardActions>
       </Card>
     );
-//  }
 }
 
 export const LocationOpenSkyCard = OpenSky({ icao24: null })(LocationCard);

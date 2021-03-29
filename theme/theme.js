@@ -2,8 +2,8 @@ import { createMuiTheme } from "@material-ui/core";
 import makePalette from "./palette";
 import typography from "./typography";
 
-function createTheme(variant) {
-  const palette = makePalette(variant);
+function createTheme(theme) {
+  const palette = makePalette(theme);
 
   return createMuiTheme(
     /**
@@ -21,7 +21,8 @@ function createTheme(variant) {
        */ props: {
         // Name of the component ⚛️
         MuiButtonBase: {
-          // The properties to apply
+        // The properties to apply
+          root: { 'background-color': 'green' , } //palette.custom.primary, }
           //disableRipple: true // No more ripple, on the whole application 💣!
         },
 
@@ -31,6 +32,12 @@ function createTheme(variant) {
         },
       },
       overrides: {
+        MuiButton: {
+          textPrimary: { 
+	        'background-color': palette.custom.primary, 
+          	'color': palette.contrastText, 
+          	}
+        },
         MuiPaper: {
           // Name of the component ⚛️ / style sheet
           elevation0: {
