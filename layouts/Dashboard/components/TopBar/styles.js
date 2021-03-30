@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
   root: {
     borderBottom: `3px solid ${theme.palette.background.secondary}`,
     boxShadow: `2 0 35px 0  ${theme.palette.background.secondary}`,
-    backgroundColor: theme.palette.custom.primary,
+    backgroundColor: theme.palette.primary.main,
     display: "flex",
     alignItems: "center",
     height: 60,
@@ -17,7 +17,7 @@ export default makeStyles((theme) => ({
     paddingLeft: "15px",
   },
   brandWrapper: {
-    background: theme.palette.custom.primary,
+    background: theme.palette.primary.main,
     display: "flex",
     justifyContent: "left",
     alignItems: "center",
@@ -34,7 +34,7 @@ export default makeStyles((theme) => ({
     fontWeight: 700,
     letterSpacing: 3,
     color: theme.palette.background.default,
-    backgroundImage: theme.palette.custom.backgroundImage,
+    backgroundImage: theme.palette.logos.wideImage,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "contain",

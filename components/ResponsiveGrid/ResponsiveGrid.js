@@ -13,12 +13,11 @@ import LayersClearIcon from '@material-ui/icons/LayersClear';
 import CloseIcon from '@material-ui/icons/Close';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
-class ResponsiveLocalStorageLayout extends React.PureComponent {
+class ResponsiveLocalStorageLayout extends React.Component {
   constructor(props) {
     super(props);
     this.defaultLayouts = defaults.Layouts; 
     this.defaultCards = defaults.Cards;
-    
     /*
      * TODO:
      * Here we automaticly generate an index for each of the cards, so that we can save the layout and cards display.
@@ -30,24 +29,27 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
      *   b) Changing the code so we have to manually assign an index, while making sure users storage of layouts remove now invalid indexes.
      */
     let cards = getFromLS("displayedCards") || this.defaultCards.map( (obj, index) => ({i: index+1, ...obj}) );
-
     let layouts = getFromLS("displayedLayouts") || this.defaultLayouts ;
     this.state = {
       displayedLayouts: layouts,
       displayedCards: cards, //Add Index on first state
     };
-  }
- static get defaultProps() { //TODO: Put this up in the MUI styles
-    return {
-      className: "layout",
-      cols: { lg: 3, md: 3, sm: 1, xs: 1, xxs: 1 },
-      rowHeight: 225, //Was 300?
-      isDraggable: true,
-      draggableHandle: ".grid-drag-handle",
-      containerPadding: '5',
-    };
+    
+    /*
+     * TODO: Normally the 'this.isCurrentlyMounted' should be initialised as false, but if you set it as so the layouts don't load right.
+     *       ~ Alan.
+     */
+    this.isCurrentlyMounted = true; 
   }
   
+  componentDidMount() { //Don't populate the grid on first load. This ensures the layout generates currently and without stale server-side arrangements.
+	this.isCurrentlyMounted = true;
+  } 
+  
+  componentWillUnmount() { //When we change page
+	this.isCurrentlyMounted = false;
+  }
+   
   resetLayout() {
     let displayedCards = this.defaultCards.map( (obj, index) => ({i: index+1, ...obj}) );
     this.onLayoutChange("", this.defaultLayouts);
@@ -60,7 +62,7 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
     /*
      * BEHOLD THE MAGIC!
      * If you add cards or want to rearange the default layout, the easyiest way to edit the layout about is to uncomment
-     * below. Then you can edit the layout in Chrome and copy + paste the layout code in above one you have done your last edit.
+     * below. Then you can edit the layout in Chrome and copy + paste the layout code in defaults.js once you have done your last edit.
      */
     //console.log(layouts);
   }
@@ -80,7 +82,7 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
     if(typeof WrappedComponent == 'undefined') { //We can't store the function in JSON-based storage, so recall it by ref
        if (typeof this.defaultCards[key-1] !== 'undefined') { //This *shouldn't* be undefined unless we messed with defaultCards
 	    	WrappedComponent = this.defaultCards[key-1].card ; 
-	} else {resetLayout(); return;} //Fall over and regenerate the layout. The site looks a bit clunky while it resets.
+	} else {this.resetLayout(); return;} //Fall over and regenerate the layout. The site looks a bit clunky while it resets.
     }
     const {classes} = this.props;
     const defaultOptions = {
@@ -110,6 +112,10 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
       <div className={classes.root}>
         <button onClick={() => this.resetLayout()}><LayersClearIcon /></button>
         <ResponsiveReactGridLayout
+          breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+          cols={{lg: 3, md: 3, sm: 1, xs: 1, xxs: 1}}
+          rowHeight={260}
+          draggableHandle=".grid-drag-handle"
           {...this.props}
           layouts={this.state.displayedLayouts}
           onBreakpointChange={this.onBreakpointChange}
@@ -117,7 +123,9 @@ class ResponsiveLocalStorageLayout extends React.PureComponent {
             this.onLayoutChange(layout, layouts)
           }
         >
-	{ this.state.displayedCards.map( (obj, index) => ( this.createDraggable(obj.i , obj.options )( obj.card , obj.props) ) ) }
+        { this.isCurrentlyMounted ? (
+        	this.state.displayedCards.map( (obj, index) => ( this.createDraggable(obj.i , obj.options )( obj.card , obj.props) ) ) 
+      	) : <>Foo</>}
         </ResponsiveReactGridLayout>
       </div>
     );

@@ -13,12 +13,15 @@ import {
   Button,
   Box,
 } from "@material-ui/core";
+
+import Link from "next/link";
+
+//Styling
+import pages from "./pages";
+import useStyles from "./styles";
+//Icons
 import CloseIcon from "@material-ui/icons/Close";
 
-import pages from "./pages";
-
-import useStyles from "./styles";
-import Link from "next/link";
 
 function Sidebar(props) {
   const { open, variant, onClose } = props;
@@ -43,8 +46,8 @@ function Sidebar(props) {
         </Hidden>
 
         <List component="div" disablePadding>
-          {pages.map((page) => (
-            <Link href={page.href}>
+          {pages.map((page, index) => (
+            <Link href={page.href} key={index}>
               <ListItem
                 key={page.title}
                 activeclassname={classes.activeListItem}

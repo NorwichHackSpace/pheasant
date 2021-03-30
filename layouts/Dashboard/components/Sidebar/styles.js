@@ -28,8 +28,8 @@ export default makeStyles(theme => ({
   listItem: {
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: theme.palette.custom.secondary,
-      borderLeft: `4px solid ${theme.palette.custom.primary}`,
+      backgroundColor: theme.palette.secondary.main,
+      borderLeft: `4px solid ${theme.palette.primary.main}`,
       borderRadius: '4px',
       '& $listItemIcon': {
         marginLeft: '-4px'
@@ -40,9 +40,9 @@ export default makeStyles(theme => ({
     }
   },
   activeListItem: {
-    borderLeft: `4px solid ${theme.palette.custom.primary}`,
+    borderLeft: `4px solid ${theme.palette.primary.main}`,
     borderRadius: '4px',
-    backgroundColor: theme.palette.custom.secondary,
+    backgroundColor: theme.palette.secondary.main,
     '& $listItemText': {
       color: theme.palette.contrastText
     },

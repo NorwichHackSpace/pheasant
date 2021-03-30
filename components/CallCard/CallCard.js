@@ -7,6 +7,10 @@ import CardContent from "@material-ui/core/CardContent";
 // import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Tooltip from '@material-ui/core/Tooltip';
+//Icons
+import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
+import SmsRoundedIcon from '@material-ui/icons/SmsRounded';
 
 const useStyles = makeStyles({
   root: {
@@ -20,8 +24,8 @@ const useStyles = makeStyles({
 
 export default function CallCard() {
   const classes = useStyles();
-  //console.log(classes);
-  return (
+  
+ return (
     <Card className={classes.root}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -31,16 +35,18 @@ export default function CallCard() {
             Colney Lane Norwich NR4 7UY
           </Typography>
         </CardContent>
-     <CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Call: 01603 286286
-        </Button>
-        <Button size="small" color="primary">
-          Message
-        </Button>
+        <Tooltip title="Disabled during Dev">
+	        <Button startIcon={<PhoneRoundedIcon />} aria-label="tel" >
+	          01603 286286
+	        </Button>
+        </Tooltip>
+        <Tooltip title="Disabled during Dev">
+	        <Button startIcon={<SmsRoundedIcon />} aria-label="sms" >
+	          Message
+	        </Button>
+        </Tooltip>
       </CardActions>
-    </CardActionArea>
     </Card>
   );
 }
@@ -60,18 +66,16 @@ export const CallCardTest = () => {
            Lilac Cottage, Mere Road
          </Typography>
        </CardContent>
-     <CardActionArea>
       <CardActions>
-        <Button size="small" color="primary"
-	  onClick={ ()=>{window.location = ("tel:01953483533"); }}>
-	 Call: 01953 483533
+        <Button startIcon={<PhoneRoundedIcon />} 
+	  	onClick={ ()=>{window.location = ("tel:07779331082"); }}>
+	 01953 483533
         </Button>
-        <Button size="small" color="primary"
-         onClick={ ()=>{window.location = ("sms:01953483533"); }}>
+        <Button startIcon={<SmsRoundedIcon />}
+                onClick={ ()=>{window.location = ('sms:[07779331082]?body=' + 'Hello msg from Pheasent'); }}>
           Message
         </Button>
       </CardActions>
-     </CardActionArea>
     </Card>
   );
 }

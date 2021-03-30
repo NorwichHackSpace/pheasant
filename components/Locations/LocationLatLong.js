@@ -12,7 +12,7 @@ class LocationLatLong extends React.Component {
   render() {
     const location = this.props;
     return (
-      <div>
+      <>
         { location.display.degrees ? (
         	<>
 	        <span className="coordinate">
@@ -41,7 +41,7 @@ class LocationLatLong extends React.Component {
             Approximately {location.coords.altitude.toFixed(0)} meters above sea level
           </span>
         ) : null}
-      </div>
+      </>
     );
   }
 }

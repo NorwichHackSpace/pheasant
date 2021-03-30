@@ -12,19 +12,28 @@ import LocationLatLong from "./LocationLatLong";
 import LocationThreeWords from "./LocationThreeWords";
 import { OpenSky } from "./LocationOpenSky";
 
+//Icons
+import MapRoundedIcon from '@material-ui/icons/MapRounded';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: 210,
   },
   main: {
-    backgroundColor: "#ffffff",
     height: "inherit",
   },
 }));
 
+
+function useHasMounted() { //Hook for hydration
+  const [hasMounted, setHasMounted] = React.useState(false);
+  React.useEffect(() => { setHasMounted(true); }, []);
+  return hasMounted;
+}
+
 export const LocationCard = (props) => { 
 
-    //const { props } = this;
+    const hasMounted = useHasMounted();
     const classes = useStyles();
 
     const locationDefaults = {
@@ -48,39 +57,40 @@ export const LocationCard = (props) => {
 
     let location = { ...locationDefaults, ...props }; //Overwrite defaults with any given props
 
+    let errorMsg = 'Loading...'; 
+    if ( !hasMounted || !props.isGeolocationEnabled ) {
+    	errorMsg = location.errorMsg.notEnabled;
+    } else if ( !props.isGeolocationAvailable ) {
+    	errorMsg = location.errorMsg.notAvailable;
+    }
+
     return (
-      <Card className={classes.root}>
+      <Card>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {location.title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {!props.isGeolocationEnabled ? (
-                <div>{location.errorMsg.notEnabled}</div>
-              ) : !props.isGeolocationAvailable ? (
-                <div>{location.errorMsg.notAvailable}</div>
-              ) : props.coords ? (
-                <>
+            {errorMsg}
+            { props.coords ? 
+            		(<span>
                   {location.display.degrees || location.display.decimals ? (
                     <LocationLatLong
                       display={location.display}
                       coords={props.coords}
-                    />
-                  ) : null}
+                    />) : null} <br />
                   {location.display.what3words ? (
                     <LocationThreeWords
                       display={location.display}
                       coords={props.coords}
-                    />
-                  ) : null}
-                </>
-              ) : null}
+                    />) : null}
+                </span>) : null}
             </Typography>
           </CardContent>
         <CardActions>
-          <Button size="medium" color="primary">
-            Map
-          </Button>
+          	<Button startIcon={<MapRoundedIcon />}>
+	            Map
+	          </Button>
         </CardActions>
       </Card>
     );

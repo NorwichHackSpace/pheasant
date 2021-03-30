@@ -9,9 +9,9 @@ export default (theme) => ({
   panelControl: {
     position: 'absolute',
     cursor: "pointer",
-    top: '4px',
-    right: '4px',
-    color: theme.palette.custom.primary,
+    top: '6px',
+    right: '6px',
+    color: theme.palette.primary.light,
   },
   panelWrapper: {
     //'background-color': 'red',

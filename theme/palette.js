@@ -6,17 +6,25 @@ const EAAAcolors = {
 }
 
 export const themePalette = {
+  //What seems to be the correct formatting...
   EAAA: {
-    type: "light",
-    background: { paper: "rgb(255, 255, 255)", default: "rgb(245, 245, 245)" },
-    custom: {
-      primary: EAAAcolors.yellow,
-      secondary: EAAAcolors.red,
-      contrastText: "white",
-      backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
+    type: "light", //A little misgiving. The main collor of yellow is light, but he secondary red is dark.
+    primary: { 
+    	main: EAAAcolors.yellow, //You only need to specify the main here, the light and dark are calculated
+    	contrastText: "black",
+    }, 
+    secondary: { 
+    	main: EAAAcolors.red, 
+    	contrastText: "white",
     },
+    background: { paper: "rgb(255, 255, 255)", default: "#eff1f2" },
     contrastText: "black",
+    logos: {
+      wideImage: "url(/logos/logo-hoz-eaaa.png)",
+    },
   },
+  
+  //Old formatting...
   Light: {
     type: "light",
     background: { paper: "rgb(255, 255, 255)", default: "rgb(245, 245, 245)" },
@@ -51,11 +59,12 @@ export const themePalette = {
     contrastText: "white",
   },
 };
-// theme on of basil, crane, pinky, rally, reply
+
 const makePalette = (type) => {
   const { contrastText, ...rest } = themePalette[type];
   return {
-    ...rest,
+    //Be safe with a default theme of basil, crane, pinky, rally, reply; then overwrite it below...
+    //TODO: We can add even more here... https://material-ui.com/customization/default-theme/?expand-path=$.palette
     contrastText,
     contrastThreshold: 2,
     border: "#DFE3E8",
@@ -102,6 +111,8 @@ const makePalette = (type) => {
       dark: "#d32f2f",
       contrastText,
     },
+    
+    ...rest    //Overwrite with theme here...
   };
 };
 

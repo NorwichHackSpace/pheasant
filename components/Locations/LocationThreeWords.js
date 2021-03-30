@@ -5,7 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
   naming: {
-    'color': theme.palette.custom.primary,
+    'color': theme.palette.secondary.main,
   },
 });
 
@@ -47,11 +47,11 @@ class LocationLatLong extends React.Component {
 	const {classes} = this.props;
 	this.callAPI();
 	return ( (this.state.w3wWords !== null ?
-		<div>
+		<>
 			<span className="coordinate">{this.state.w3wPlace}</span><br />
 			<span className={classes.naming}>///</span>
 			<span className="coordinate">{this.state.w3wWords}</span>		
-		</div> 
+		</> 
 		 : null ) );
   }
 }
