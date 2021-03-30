@@ -1,8 +1,17 @@
 import { red, blue, lightBlue, yellow, green } from "@material-ui/core/colors";
 
-const EAAAcolors = {
-	yellow: "#ffc600",
-	red: "#dd042b",
+export const EAAAcolors = {
+	primary: {
+		yellow: "#ffc600", //mid
+		red: "#DD042D", //darkish
+		coolgrey: "#646469", //Slightly darker than secondary
+	},
+	secondary: {
+		coolgrey: "#ABAAAA", //Slight lighter than primary
+		darkgrey: "#464749", //Darkest all the greys
+		blue: "#8BD1EA", //light
+	}
+
 }
 
 export const themePalette = {
@@ -10,14 +19,14 @@ export const themePalette = {
   EAAA: {
     type: "light", //A little misgiving. The main collor of yellow is light, but he secondary red is dark.
     primary: { 
-    	main: EAAAcolors.yellow, //You only need to specify the main here, the light and dark are calculated
+    	main: EAAAcolors.primary.yellow, //You only need to specify the main here, the light and dark are calculated
     	contrastText: "black",
     }, 
     secondary: { 
-    	main: EAAAcolors.red, 
+    	main: EAAAcolors.primary.red, 
     	contrastText: "white",
     },
-    background: { paper: "rgb(255, 255, 255)", default: "#eff1f2" },
+    background: { paper: EAAAcolors.secondary.coolgrey, default: EAAAcolors.primary.coolgrey },
     contrastText: "black",
     logos: {
       wideImage: "url(/logos/logo-hoz-eaaa.png)",
@@ -27,36 +36,51 @@ export const themePalette = {
   //Old formatting...
   Light: {
     type: "light",
-    background: { paper: "rgb(255, 255, 255)", default: "rgb(245, 245, 245)" },
-    custom: {
-      primary: "#2992B6",
-      secondary: "#20718E",
-      contrastText: "white",
-      backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
+    primary: { 
+    	main: EAAAcolors.primary.yellow, 
+    	contrastText: "white",
+    }, 
+    secondary: { 
+    	main: EAAAcolors.primary.red, 
+    	contrastText: "white",
     },
-    contrastText: "black",
+    background: { paper: "rgb(255, 255, 255)", default: "rgb(244, 244, 244)"},
+    contrastText: "white",
+    logos: {
+      wideImage: "url(/logos/logo-hoz-eaaa.png)",
+    },
   },
   Dark: {
     type: "dark",
-    background: { paper: "rgb(66, 66, 66)", default: "rgb(51, 51, 51)" },
-    custom: {
-      primary: "rgb(33, 33, 33)",
-      secondary: "rgb(55, 55, 55)",
-      contrastText: "white",
-      backgroundImage: "url(/logos/logo-hoz-eaaa.png)",
+    primary: { 
+    	main: "rgb(33, 33, 33)", 
+    	contrastText: "white",
+    }, 
+    secondary: { 
+    	main: EAAAcolors.primary.yellow, 
+    	contrastText: "white",
     },
+    background: { paper: "rgb(66, 66, 66)", default: "rgb(51, 51, 51)" },
     contrastText: "white",
+    logos: {
+      wideImage: "url(/logos/logo-hoz-eaaa.png)",
+    },
   },
   Contrast: {
     type: "dark",
-    background: { paper: "rgb(66, 66, 66)", default: "rgb(51, 51, 51)" },
-    custom: {
-      primary: "rgb(33, 33, 33)",
-      secondary: "rgb(55, 55, 55)",
-      contrastText: "white",
-      backgroundImage: "url(/logos/logo-hoz-eaaa-whiten.png)",
+    primary: { 
+    	main: "rgb(0, 0, 0)", 
+    	contrastText: "white",
+    }, 
+    secondary: { 
+    	main: "rgb(224, 224, 224)", 
+    	contrastText: "white",
     },
+    background: { paper: "rgb(0, 0, 0)", default: "rgb(33, 33, 33)" },
     contrastText: "white",
+    logos: {
+      wideImage: "url(/logos/logo-hoz-eaaa-whiten.png)",
+    },
   },
 };
 

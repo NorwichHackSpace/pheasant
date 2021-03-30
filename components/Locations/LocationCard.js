@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function useHasMounted() { //Hook for hydration
   const [hasMounted, setHasMounted] = React.useState(false);
   React.useEffect(() => { setHasMounted(true); }, []);
@@ -57,7 +56,7 @@ export const LocationCard = (props) => {
 
     let location = { ...locationDefaults, ...props }; //Overwrite defaults with any given props
 
-    let errorMsg = 'Loading...'; 
+    let errorMsg = null; 
     if ( !hasMounted || !props.isGeolocationEnabled ) {
     	errorMsg = location.errorMsg.notEnabled;
     } else if ( !props.isGeolocationAvailable ) {

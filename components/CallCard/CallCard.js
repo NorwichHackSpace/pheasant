@@ -51,8 +51,6 @@ export default function CallCard() {
   );
 }
 
-
-//TODO: Console log says there is a button within a button here?
 export const CallCardTest = () => { 
 
   const classes = useStyles();
@@ -72,12 +70,11 @@ export const CallCardTest = () => {
 	 01953 483533
         </Button>
         <Button startIcon={<SmsRoundedIcon />}
-                onClick={ ()=>{window.location = ('sms:[07779331082]?body=' + 'Hello msg from Pheasent'); }}>
+                onClick={ ()=>{window.location = ('sms:07779331082?body=' + 'Hello msg from Pheasent'); }}>
           Message
         </Button>
       </CardActions>
     </Card>
   );
 }
-
 

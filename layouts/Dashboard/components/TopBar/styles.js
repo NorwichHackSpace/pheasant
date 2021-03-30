@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import { urlObjectKeys } from "next/dist/next-server/lib/utils";
+import { EAAAcolors } from "../../../../theme/palette";
 
 export default makeStyles((theme) => ({
   root: {
@@ -17,7 +18,7 @@ export default makeStyles((theme) => ({
     paddingLeft: "15px",
   },
   brandWrapper: {
-    background: theme.palette.primary.main,
+    //background: theme.palette.primary.main,
     display: "flex",
     justifyContent: "left",
     alignItems: "center",

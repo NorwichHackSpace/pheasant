@@ -34,16 +34,13 @@ class ResponsiveLocalStorageLayout extends React.Component {
       displayedLayouts: layouts,
       displayedCards: cards, //Add Index on first state
     };
-    
-    /*
-     * TODO: Normally the 'this.isCurrentlyMounted' should be initialised as false, but if you set it as so the layouts don't load right.
-     *       ~ Alan.
-     */
-    this.isCurrentlyMounted = true; 
+
+    this.isCurrentlyMounted = false; 
   }
   
   componentDidMount() { //Don't populate the grid on first load. This ensures the layout generates currently and without stale server-side arrangements.
 	this.isCurrentlyMounted = true;
+	this.setState({}); //Regen
   } 
   
   componentWillUnmount() { //When we change page
@@ -92,16 +89,27 @@ class ResponsiveLocalStorageLayout extends React.Component {
     options = {...defaultOptions, ...options}
     /* 
      * TODO:
-     * In terms of MUI, having a hidden icon <CloseIcon className={hiddenIcon} /> 
+     * In terms of MUI, having a hidden or disabled icon <CloseIcon className={???} /> 
      * instead of 'null' might make sense. Or not. Delete or change when/if decided.
+     * //
+     * For some reason if you don't at least try and generated WrappedComponents while not mounted
+     * the layout doesn't get set correctly. Almost like the Cols or Breakpoints don't get calc'ed?
      */
+
+    if (!this.isCurrentlyMounted) { 
+	    return (
+	    	<div key={key} className={classes.panelWrapper} >
+	    	</div>
+	    )
+    };
+
     return (
-      <div key={key} className={classes.panelWrapper}>
+      <div key={key} className={classes.panelWrapper} >
         <div className={classes.panelControl} >
 	        {options.isDragable ? (<DragIndicatorIcon className="grid-drag-handle" />) : null}
 	        {options.isCloseable ? (<CloseIcon onClick={ this.onRemoveItem.bind(this, key) } /> ) : null}
         </div>
-        <WrappedComponent {...this.state} {...this.props} {...WrappedProps} />
+        <WrappedComponent {...this.state} {...this.props} {...WrappedProps} /> 
       </div>
     );
   }
@@ -110,7 +118,9 @@ class ResponsiveLocalStorageLayout extends React.Component {
     const {classes} = this.props;
     return (
       <div className={classes.root}>
-        <button onClick={() => this.resetLayout()}><LayersClearIcon /></button>
+        <button onClick={() => this.resetLayout()}>
+        	<LayersClearIcon />
+        </button>
         <ResponsiveReactGridLayout
           breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
           cols={{lg: 3, md: 3, sm: 1, xs: 1, xxs: 1}}
@@ -123,9 +133,7 @@ class ResponsiveLocalStorageLayout extends React.Component {
             this.onLayoutChange(layout, layouts)
           }
         >
-        { this.isCurrentlyMounted ? (
-        	this.state.displayedCards.map( (obj, index) => ( this.createDraggable(obj.i , obj.options )( obj.card , obj.props) ) ) 
-      	) : <>Foo</>}
+        { this.state.displayedCards.map( (obj, index) => ( this.createDraggable(obj.i , obj.options )( obj.card , obj.props) ) ) }
         </ResponsiveReactGridLayout>
       </div>
     );
