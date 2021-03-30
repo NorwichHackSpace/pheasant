@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import getConfig from "next/config";
 import PropTypes from "prop-types";
 import Head from "next/head";
-// import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from "@material-ui/core/CssBaseline";
 // import { ThemeProvider } from "@material-ui/styles";
 import ThemeProvider from "../theme";
 import ThemeContext from "../theme/ThemeContext";
@@ -28,6 +28,7 @@ export default function MyApp(props) {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <ThemeProvider>
+        <CssBaseline />
         <Head>
           <title>{publicRuntimeConfig.title} </title>
           <meta

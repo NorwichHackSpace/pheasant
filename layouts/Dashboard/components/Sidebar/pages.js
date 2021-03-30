@@ -19,7 +19,7 @@ const pages = [
   },
   {
     title: "Equipment",
-    href: "/intervention",
+    href: "/equipment",
     icon: <ReportProblemTwoToneIcon />,
   },
 ];
