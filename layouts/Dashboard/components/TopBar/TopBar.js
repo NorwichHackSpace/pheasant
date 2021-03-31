@@ -64,13 +64,12 @@ function Topbar(props) {
        
      	<ThemeToggler className={classes.themeToggler} / >
         
-        <IconButton className={classes.notificationsButton}>
+        <IconButton className={classes.notificationsButton} onClick={fakeBell}>
           <Badge
             badgeContent={notifications.length}
             color="secondary"
             variant="dot"
             invisible={ bellRinging ? false : true }
-            onClick={fakeBell}
           >
             <NotificationsIcon />
           </Badge>

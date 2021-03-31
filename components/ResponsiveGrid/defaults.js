@@ -1,6 +1,7 @@
 //Components
 import LocationGeoCard, { LocationOpenSkyCard  } from "../Locations/LocationCard";
 import CallCard, { CallCardTest } from "../CallCard/CallCard";
+import nearestHosp, { demoHospitals } from "../CallCard/nearestHosp";
 import styles from "./styles";
 
 /* 
@@ -35,12 +36,15 @@ export default {
     	//Disabled the OpenSkyCards during Dev as they use a lot of API calls. ~Alan
     	{ card: LocationGeoCard, options: { isDragable: true, isCloseable: false, } },
 	{ card: LocationOpenSkyCard, props: {title:"Anglia One", icao24:"406f2b", style:{styles} } },
-	{ card: LocationOpenSkyCard, props: {title:"Anglia Two", icao24:"406ca0", style:{styles} } }, 
-	{ card: LocationOpenSkyCard, props: {title:"Lincs & Notts Air Ambulance", icao24:"40709d", style:{styles} } },
-	{ card: LocationOpenSkyCard, props: {title:"Scottish Air Ambulance", icao24:"406d68", style:{styles} } },
+	{ card: LocationOpenSkyCard, props: {title:"Anglia Two", icao24:"406ca0", style:{styles} } },
+	{ card: nearestHosp, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } }, 
+	{ card: demoHospitals, props: { title:"Nearest Hospital (Demo)", style:{styles} }, options: { isDragable: true, isCloseable: true, } },
+//	{ card: LocationOpenSkyCard, props: {title:"Lincs & Notts Air Ambulance", icao24:"40709d", style:{styles} } },
+//	{ card: LocationOpenSkyCard, props: {title:"Scottish Air Ambulance", icao24:"406d68", style:{styles} } },
 	{ card: LocationOpenSkyCard, props: {title:"Watch Test", icao24:"", style:{styles} } },
-	{ card: CallCard, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } },
-	{ card: CallCardTest, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } }
+//	{ card: CallCard, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } },
+	{ card: CallCardTest, props: { style:{styles} }, options: { isDragable: true, isCloseable: true, } },
 	],
 };
+
 
