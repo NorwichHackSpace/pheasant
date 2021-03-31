@@ -14,8 +14,8 @@ export default {
 	      rowHeight: 260, //Was 300?
 	      draggableHandle: ".grid-drag-handle",
     },
-    Layouts: { 
-	    "lg": [
+    Layouts: { "lg":[{"w":1,"h":1,"x":0,"y":0,"i":"1","moved":false,"static":false},{"w":1,"h":1,"x":1,"y":0,"i":"2","moved":false,"static":false},{"w":1,"h":1,"x":2,"y":0,"i":"3","moved":false,"static":false},{"w":1,"h":2,"x":0,"y":1,"i":"4","moved":false,"static":false},{"w":1,"h":2,"x":1,"y":1,"i":"5","moved":false,"static":false},{"w":1,"h":1,"x":2,"y":1,"i":"6","moved":false,"static":false},{"w":1,"h":1,"x":2,"y":2,"i":"7","moved":false,"static":false}],"xxs":[{"w":1,"h":1,"x":0,"y":0,"i":"1","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":1,"i":"2","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":2,"i":"3","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":3,"i":"4","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":5,"i":"5","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":4,"i":"6","moved":false,"static":false}],"xs":[{"w":1,"h":1,"x":0,"y":0,"i":"1","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":1,"i":"2","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":2,"i":"3","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":3,"i":"4","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":4,"i":"5","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":5,"i":"6","moved":false,"static":false},{"w":1,"h":1,"x":0,"y":6,"i":"7","moved":false,"static":false}]
+/*	    "lg": [
 	        { "w": 1, "h": 1, "x": 0, "y": 0, "i": "1", "moved": false, "static": false },
 	        { "w": 1, "h": 1, "x": 1, "y": 0, "i": "2", "moved": false, "static": false },
 		{ "w": 1, "h": 1, "x": 2, "y": 0, "i": "3", "moved": false, "static": false },
@@ -30,7 +30,7 @@ export default {
 	        { "w": 1, "h": 1, "x": 0, "y": 3, "i": "4", "moved": false, "static": false },
 	        { "w": 1, "h": 1, "x": 0, "y": 5, "i": "5", "moved": false, "static": false },
 	        { "w": 1, "h": 1, "x": 0, "y": 4, "i": "6", "moved": false, "static": false }
-	    ], 
+	    ], */
 	},	
     Cards: [ 
     	//Disabled the OpenSkyCards during Dev as they use a lot of API calls. ~Alan

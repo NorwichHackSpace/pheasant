@@ -61,7 +61,7 @@ class ResponsiveLocalStorageLayout extends React.Component {
      * If you add cards or want to rearange the default layout, the easyiest way to edit the layout about is to uncomment
      * below. Then you can edit the layout in Chrome and copy + paste the layout code in defaults.js once you have done your last edit.
      */
-    //console.log(layouts);
+    console.log(layouts);
   }
   
   onCardsChange(displayedCards) {
