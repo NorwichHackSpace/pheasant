@@ -26,6 +26,7 @@
     "react-geolocated": "^3.1.0",
     "react-grid-layout": "^1.2.2",
     "react-map-gl": "^6.1.10",
+    "react-signature-canvas": "^1.0.3",
     "sqlite3": "^5.0.2",
     "styled-components": "^5.1.0",
     "userbase-js": "^2.8.0"

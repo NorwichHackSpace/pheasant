@@ -43,7 +43,6 @@ const styles = () => ({
 	},
 });
 
-
 /*
  * This routine calculates the distance between two points. South latitudes are negative, 
  * east longitudes are positive.
@@ -163,19 +162,19 @@ class LocalHospital extends React.Component {
 			    	 {errorMsg}
 			    	 {
 		       		this.state.hospitals && this.state.hospitals.length>0 && this.state.hospitals.map((key,index)=>
-		       		        <ListItem  key={index}>
+      <ListItem dense='true' divider='true' disableGutters='true' key={index}>
           <ListItemText primary={key.Hospital} />
           <ListItemSecondaryAction>
-               <IconButton edge="end" aria-label="delete" onClick={ ()=>{window.location = ("tel:07779331082"); } }>
+               <Button edge="end" aria-label="delete" onClick={ ()=>{window.location = ("tel:07779331082"); } }>
 	               <Tooltip title={"Will call Alan during Development! | " + key.Tel + " |" }>
         	         <PhoneRoundedIcon />
         	        </Tooltip>
-               </IconButton>
-               <IconButton edge="end" aria-label="delete" onClick={ ()=>{window.location = ('sms:07779331082?body=' + 'I was testing a SMS button for ' + key.Hospital + '. The number would of been ' + key.Tel ); }} >
+               </Button> {' '}
+               <Button edge="end" aria-label="delete" onClick={ ()=>{window.location = ('sms:07779331082?body=' + 'I was testing a SMS button for ' + key.Hospital + '. The number would of been ' + key.Tel ); }} >
 	               <Tooltip title={"Will SMS Alan during Development! | " + key.Tel + " |" } >
         	         <SmsRoundedIcon />
         	        </Tooltip>
-               </IconButton>
+               </Button>
            </ListItemSecondaryAction>
         </ListItem>
         
@@ -197,26 +196,3 @@ export default geolocated({
 	},
 	userDecisionTimeout: 5000,
 })(LocalHospital);
-
-/*
-
-          <Typography variant="body2" color="textSecondary" component="p">
-            Colney Lane Norwich NR4 7UY
-          </Typography>
-        </CardContent>
-      <CardActions>
-        <Tooltip title="Disabled during Dev">
-	        <Button startIcon={<PhoneRoundedIcon />} aria-label="tel" >
-	          01603 286286
-	        </Button>
-        </Tooltip>
-        <Tooltip title="Disabled during Dev">
-	        <Button startIcon={<SmsRoundedIcon />} aria-label="sms" >
-	          Message
-	        </Button>
-        </Tooltip>
-      </CardActions>
-      
-      
-      
-*/
