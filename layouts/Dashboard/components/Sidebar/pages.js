@@ -31,19 +31,6 @@ const pages = [
     title: "Assignments",
     href: "/assignment",
     icon: <AssignmentIcon />,    
-     // My Jobs
-     // * All
-     // * Active
-     // * Scheduled
-     // My Flows
-     // * Air Traffic Control
-     // * Emergancy Changes
-     // * Issues Logbook
-     // * Logbook Adhoc
-     // Flows Not Done
-     //  ( Team issues, check on others )
-     // Flows Checkup
-     //  ( Show when check was done and by who )
   },
   {
     title: "Resources",

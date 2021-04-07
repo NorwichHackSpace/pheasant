@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
+  SwipeableDrawer,
   Drawer,
   List,
   ListItem,
@@ -13,29 +14,33 @@ import {
   Button,
   Box,
 } from "@material-ui/core";
-
 import Link from "next/link";
-
 //Styling
 import pages from "./pages";
 import useStyles from "./styles";
 //Icons
 import CloseIcon from "@material-ui/icons/Close";
 
+const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+/*  */
 function Sidebar(props) {
   const { open, variant, onClose } = props;
   const classes = useStyles();
   return (
-    <Drawer
+    <SwipeableDrawer
+      disableBackdropTransition={!iOS} disableDiscovery={iOS}
       anchor="left"
       classes={{ paper: classes.drawer }}
       open={open}
+      onOpen={onClose}
       onClose={onClose}
       variant={variant}
     >
       <section className={classes.root}>
-        <Hidden mdUp>
+       <Typography gutterBottom variant="h5" component="h2">
+		Pheasant
+	 <Hidden mdUp>
           <IconButton
             className={classes.menuButton}
             aria-label="Menu"
@@ -44,14 +49,17 @@ function Sidebar(props) {
             <CloseIcon />
           </IconButton>
         </Hidden>
-
+	</Typography>
+	<Divider />
         <List component="div" disablePadding>
           {pages.map((page, index) => (
-            <Link href={page.href} key={index}>
+            <Link href={page.href} key={index}
+            >
               <ListItem
                 key={page.title}
                 activeclassname={classes.activeListItem}
                 className={classes.listItem}
+                onClick={onClose}
               >
                 <ListItemIcon className={classes.listItemIcon}>
                   {page.icon}
@@ -65,7 +73,7 @@ function Sidebar(props) {
           ))}
         </List>
       </section>
-    </Drawer>
+    </SwipeableDrawer>
   );
 }
 Sidebar.propTypes = {

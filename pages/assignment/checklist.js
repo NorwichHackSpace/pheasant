@@ -9,9 +9,12 @@ import {
 import IconButton from "@material-ui/core/IconButton";
 import FolderIcon from "@material-ui/icons/Folder";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 //Components
 import Paper from '@material-ui/core/Paper';
+import Typography from "@material-ui/core/Typography";
 
 import Button from "@material-ui/core/Button";
 import Divider from '@material-ui/core/Divider';
@@ -24,13 +27,17 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 //Third Party
 import SignaturePad from 'react-signature-canvas'; // https://github.com/agilgur5/react-signature-canvas/tree/cra-example/
 
 
 //Settings
 const styles = (theme) => ({
-	///////
 
 	signature: {
 		'text-align': 'center',
@@ -59,52 +66,83 @@ const styles = (theme) => ({
 		'background-color': '#fff',
 		margin: '20px',
 	},
-
-	///////
-	root: {
-		margin: '60px auto 10px',
-		padding: '15px',
-		width: '80%',
+	
+	checkitems: {
+		width: '100%',
+		border: '1px solid grey',
+		'background-color': theme.palette.background.default,
+		padding: '0 15px',
 	},
-	demo: {},
-	title: {},
+
+	root: {
+		margin: '40px auto 15px',
+		padding: '0 0 15px 0',
+		width: '90%',
+
+	},
+	title: { 
+		'padding' : '15px 25px 0', 
+	},
 });
+
+const exampleChecklist = [{
+		title: 'Screenwash',
+		desc: 'The screenwash is topped up.',
+		resources: 'Screenwash Guide',
+	},
+	{
+		title: 'Fuel',
+		desc: 'Fuel gauge shows at least half a tank.'
+	},
+	{
+		title: 'Oil',
+		desc: 'Remove oil dip stick. Wipe with cloth. Insert, remove, and check level is between min and max'
+	},
+	{
+		title: 'Fluffy Dice',
+		desc: 'Fluffy dice are displayed in windscreen.'
+	},
+	{
+		title: 'Tires',
+		desc: 'Inspect tires. If Helicopter has them you have the wrong vehicle.'
+	},
+];
 
 class Flows extends Component {
 	constructor() {
 		super();
 		this.state = {
-			checked: [],		
+			checked: [],
 		};
 		this.isCurrentlyMounted = false;
 	}
-	
+
 	componentDidMount() {
 		this.isCurrentlyMounted = true;
-		console.log("MOUNTED");
 	}
 
 	componentWillUnmount() {
 		this.isCurrentlyMounted = false;
-		console.log("UN-MOUNTED");
 	}
 
-   handleToggle = (value) => {
-    if (!this.isCurrentlyMounted) {
-    	console.log("RETURNED");
-    	return;
-    }
-    const currentIndex = this.state.checked.indexOf(value);
-    const newChecked = [...this.state.checked];
+	handleToggle = (value) => {
+		if (!this.isCurrentlyMounted) {
+			return;
+		}
+		const currentIndex = this.state.checked.indexOf(value);
+		const newChecked = [...this.state.checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    console.log("SET ", newChecked);
-    this.setState({checked: newChecked,});
-  }
+		if (currentIndex === -1) {
+			newChecked.push(value);
+		} else {
+			newChecked.splice(currentIndex, 1);
+		}
+		console.log("SET ", newChecked);
+		console.log("LENGTH ", exampleChecklist.length );
+		this.setState({
+			checked: newChecked,
+		});
+	}
 
 	state = {
 		trimmedDataURL: null
@@ -126,25 +164,48 @@ class Flows extends Component {
 		let {
 			trimmedDataURL
 		} = this.state;
+		
+		
 		return (
-    <Paper className={classes.root} eveation={3}  >
-    <h1>Pre-Flight Checklist</h1>
-    
-    
-     <List dense className={classes.root}>
-      {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-secondary-label-${value}`;
+   <Paper className={classes.root} eveation={3}  >
+    <h1 className={classes.title}>Pre-Flight Checklist</h1>
+     <List dense >
+      {exampleChecklist.map((checkItem, index) => {
+        const labelId = `checkbox-list-${checkItem.title}`;
         return (
-          <ListItem key={value} button>
-            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-            <ListItemSecondaryAction>
+          <ListItem key={labelId}  >
+          
+      <Accordion className={classes.checkitems} >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-label="Expand"
+          aria-controls="additional-actions1-content"
+          id="additional-actions1-header"
+        >
+          <FormControlLabel
+            aria-label="Acknowledge"
+            onClick={(event) => event.stopPropagation()}
+            onFocus={(event) => event.stopPropagation()}
+            control={
+
               <Checkbox
-                edge="end"
-                /* onChange={this.handleToggle(value)} */
-                /* checked={this.state.checked.indexOf(value) !== -1} */
-                inputProps={{ 'aria-labelledby': labelId }}
+                edge="start"
+                onChange={() => this.handleToggle(index)} 
+                checked={this.state.checked.indexOf(index) !== -1}
               />
-            </ListItemSecondaryAction>
+
+            }
+            label={checkItem.title} 
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography color="textSecondary">
+		{checkItem.desc} <br />
+		<MenuBookIcon /> Related Resources: Foo Manual Link , Bar Link
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+            
           </ListItem>
         );
       })}
@@ -152,22 +213,37 @@ class Flows extends Component {
     
     
     <div className={classes.signature}>
-      <h2>Sign your assignment!</h2>
+      <h2>Signature</h2>
       <div className={classes.signcanvas}>
-        <SignaturePad canvasProps={{className: classes.sigPad}}
-         		ref={(ref) => { this.sigPad = ref }} /> 
-      </div>
-      <div>
-        <Button onClick={this.clear}>
-          Clear
-        </Button> {' '}
-        <Button onClick={this.trim}>
-          Save
-        </Button>
-      </div>
-      {trimmedDataURL
+       {trimmedDataURL
         ? <img src={trimmedDataURL} className={classes.sigImage} />
-        : null}
+        : <SignaturePad canvasProps={{className: classes.sigPad}}
+         		ref={(ref) => { this.sigPad = ref }} /> 
+         }
+      </div>
+        {trimmedDataURL
+         ? <div>
+	           <Button onClick={ () => {this.setState({trimmedDataURL: null}) } } >Clear</Button> {' '}
+	           <Button disabled>Save</Button>
+           </div>
+         : <div>
+	         <Button onClick={this.clear}>Clear</Button> {' '}
+        	   <Button onClick={this.trim}>Save</Button>
+           </div>
+        }
+       <br />
+       {trimmedDataURL
+         ? ( this.state.checked.length !== exampleChecklist.length ) ?  	  
+         		   <Button size='medium' onClick={console.log("Saved")} >
+				  Sign with Issues
+			   </Button>
+	   	  :        <Button size='medium' onClick={console.log("Saved")} >
+				  Sign as Successful
+			   </Button>
+         : <Button size='medium' disabled>
+		  No Signature
+	   </Button>
+        }
     </div>
     </Paper>)
 	}

@@ -5,14 +5,14 @@ export default makeStyles(theme => ({
     borderRight: 0,
     zIndex: 1200,
     width: 271,
-    top: 60
-  },
+    top: 0
+  }, 
   root: {
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    paddingTop: theme.spacing(3),
+    paddingTop: theme.spacing(1),
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1)
   },
@@ -59,8 +59,9 @@ export default makeStyles(theme => ({
   },
 
   [theme.breakpoints.down('sm')]: {
-    drawer: { top: 0 },
-    menuButton: { dispaly: 'none' },
-    profile: { marginTop: theme.spacing(5) }
+    root: { 
+    	float: 'left',
+    },
+    drawer: { width: '80%' },
   }
 }));

@@ -9,9 +9,6 @@ import useStyles from "./styles";
 function Dashboard({ children }) {
   const classes = useStyles();
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("lg"), {
-    defaultMatches: true,
-  });
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleToggleSidebar = () => {
@@ -24,11 +21,10 @@ function Dashboard({ children }) {
       <Sidebar
         onClose={handleToggleSidebar}
         open={openSidebar}
-        variant={isDesktop ? "persistent" : "temporary"}
+        variant="temporary"
       />
       <main
         className={clsx({
-          [classes.contentShift]: openSidebar,
           [classes.content]: true,
         })}
       >
