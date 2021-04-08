@@ -287,7 +287,7 @@ class Flows extends Component {
         
        	     <Dialog
 			open={this.state.issueDialog}
-			onClose={handleCompletion}
+			onClose={ () => { this.setState({issueDialog: false}) } }
 			aria-labelledby="alert-dialog-title"
 			aria-describedby="alert-dialog-description"
 		      >
@@ -299,7 +299,7 @@ class Flows extends Component {
 			  </DialogContentText>
 			</DialogContent>
 			<DialogActions>
-			  <Button onClick={ () => { this.setState({issueDialog: false}) }} color="primary">
+			  <Button onClick={ () => { this.setState({issueDialog: false}) } } color="primary">
 			    Resume Check
 			  </Button>
 			  <Button onClick={handleIssues} color="primary" autoFocus>
