@@ -38,8 +38,8 @@ function Sidebar(props) {
       variant={variant}
     >
       <section className={classes.root}>
-       <Typography gutterBottom variant="h5" component="h2">
-		Pheasant
+       <Typography gutterBottom variant="h5" component="h2" >
+		PHEASANT
 	 <Hidden mdUp>
           <IconButton
             className={classes.menuButton}

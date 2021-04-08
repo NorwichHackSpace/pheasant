@@ -1,6 +1,6 @@
 import React, {
-	Component
-} from "react";
+	Component, 
+	} from "react";
 import {
 	withStyles
 } from "@material-ui/core/styles";
@@ -13,30 +13,20 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 //Components
-import Paper from '@material-ui/core/Paper';
-import Typography from "@material-ui/core/Typography";
-
-import Button from "@material-ui/core/Button";
-import Divider from '@material-ui/core/Divider';
-import Avatar from "@material-ui/core/Avatar";
-import Checkbox from '@material-ui/core/Checkbox';
-
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {
+	Paper, Typography, Link,
+	Button, Divider, Avatar, Checkbox,
+	List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText,
+	Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+	Accordion, AccordionSummary, AccordionDetails, FormControlLabel
+	} from "@material-ui/core";
 
 //Third Party
 import SignaturePad from 'react-signature-canvas'; // https://github.com/agilgur5/react-signature-canvas/tree/cra-example/
-
+import { getFromLS, saveToLS } from "../../components/LocalStorage/LocalStorage";
 
 //Settings
+
 const styles = (theme) => ({
 
 	signature: {
@@ -81,18 +71,26 @@ const styles = (theme) => ({
 
 	},
 	title: { 
-		'padding' : '15px 25px 0', 
+		'padding': '15px 25px 0', 
 	},
 });
 
-const exampleChecklist = [{
+const exampleChecklist = [
+	{
 		title: 'Screenwash',
 		desc: 'The screenwash is topped up.',
-		resources: 'Screenwash Guide',
+		resources: [ 
+			{ desc: 'Screenwash Guide' , link: 'screenwash' }, 
+			{ desc: 'Bug Removal' , link: 'debugging' }, 
+		],
 	},
 	{
 		title: 'Fuel',
-		desc: 'Fuel gauge shows at least half a tank.'
+		desc: 'Fuel gauge shows at least half a tank.',
+		resources: [ 
+			{ desc: 'Selecting the correct fuel grade' , link: 'fuelgrades' }, 
+			{ desc: 'Dealing with a mis-fueling' , link: 'misfuel' },
+		],
 	},
 	{
 		title: 'Oil',
@@ -108,11 +106,22 @@ const exampleChecklist = [{
 	},
 ];
 
+function handleIssues() {
+	console.log("Handling Issues");
+}
+
+function handleCompletion() {
+	console.log("Handling Completion");
+	saveToLS("savedsnack", true);
+	window.location.replace("/assignment");
+}
+
 class Flows extends Component {
 	constructor() {
 		super();
 		this.state = {
 			checked: [],
+			issueDialog: false,
 		};
 		this.isCurrentlyMounted = false;
 	}
@@ -137,8 +146,6 @@ class Flows extends Component {
 		} else {
 			newChecked.splice(currentIndex, 1);
 		}
-		console.log("SET ", newChecked);
-		console.log("LENGTH ", exampleChecklist.length );
 		this.setState({
 			checked: newChecked,
 		});
@@ -147,25 +154,40 @@ class Flows extends Component {
 	state = {
 		trimmedDataURL: null
 	}
+	
 	sigPad = {}
 	clear = () => {
 		this.sigPad.clear()
 	}
+	
 	trim = () => {
 		this.setState({
 			trimmedDataURL: this.sigPad.getTrimmedCanvas()
 				.toDataURL('image/png')
 		})
 	}
+	
+/////////	
+
+	issues = () => {
+		console.log("Found issues");
+		this.setState({issueDialog: true});
+	}
+	
+	successful = () => {
+		console.log("Checklist successful");
+		handleCompletion();
+	}
+	
+/////////	
+
 	render() {
 		const {
 			classes
 		} = this.props;
 		let {
 			trimmedDataURL
-		} = this.state;
-		
-		
+		} = this.state;	
 		return (
    <Paper className={classes.root} eveation={3}  >
     <h1 className={classes.title}>Pre-Flight Checklist</h1>
@@ -198,11 +220,29 @@ class Flows extends Component {
             label={checkItem.title} 
           />
         </AccordionSummary>
-        <AccordionDetails>
-          <Typography color="textSecondary">
-		{checkItem.desc} <br />
-		<MenuBookIcon /> Related Resources: Foo Manual Link , Bar Link
-          </Typography>
+        <AccordionDetails style={{ 'display': "block", }} >
+          <Typography variant="body1"  >
+		{checkItem.desc} 
+	  </Typography>
+		{ checkItem.resources
+		   ? <>
+		     <Divider style={{ 'margin': '10px', }} />
+		     <Typography key={ 'resource-link'+index } variant="body2" >
+		     <MenuBookIcon /> Related Resources: <br />
+			     {checkItem.resources.map((resource, index) => {
+			     return (
+				     	<Link href='#' variant="body1" key={'resource-link'+index} 
+				     	      color='secondary' style={{'padding-left': '40px'}}
+				     	>
+				     		{resource.desc}<br />
+				     	</Link>
+				     )
+			     })}
+		     </Typography>
+		     </>
+		   : null
+		}
+          
         </AccordionDetails>
       </Accordion>
             
@@ -234,22 +274,47 @@ class Flows extends Component {
        <br />
        {trimmedDataURL
          ? ( this.state.checked.length !== exampleChecklist.length ) ?  	  
-         		   <Button size='medium' onClick={console.log("Saved")} >
+         		   <Button size='medium' onClick={this.issues} >
 				  Sign with Issues
 			   </Button>
-	   	  :        <Button size='medium' onClick={console.log("Saved")} >
+	   	  :        <Button size='medium' onClick={this.successful} >
 				  Sign as Successful
 			   </Button>
          : <Button size='medium' disabled>
 		  No Signature
 	   </Button>
         }
+        
+       	     <Dialog
+			open={this.state.issueDialog}
+			onClose={handleCompletion}
+			aria-labelledby="alert-dialog-title"
+			aria-describedby="alert-dialog-description"
+		      >
+			<DialogTitle id="alert-dialog-title">{"Save checklist with issues?"}</DialogTitle>
+			<DialogContent>
+			  <DialogContentText id="alert-dialog-description">
+			    Saving a checklist with items unchecked will automaticly generate shared issues with those items.
+			    Are you sure this is what you want to do?
+			  </DialogContentText>
+			</DialogContent>
+			<DialogActions>
+			  <Button onClick={ () => { this.setState({issueDialog: false}) }} color="primary">
+			    Resume Check
+			  </Button>
+			  <Button onClick={handleIssues} color="primary" autoFocus>
+			    Raise Issues
+			  </Button>
+			</DialogActions>
+		      </Dialog>
+		      
     </div>
     </Paper>)
 	}
 }
 
-export default withStyles(styles)(Flows); //'Higher-order component' method of injecting MaterialUI themeing.     // My Jobs
+export default withStyles(styles)(Flows); //'Higher-order component' method of injecting MaterialUI themeing.     
+// My Jobs
 // * All
 // * Active
 // * Scheduled

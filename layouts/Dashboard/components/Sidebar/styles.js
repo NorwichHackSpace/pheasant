@@ -44,7 +44,7 @@ export default makeStyles(theme => ({
     borderRadius: '4px',
     backgroundColor: theme.palette.secondary.main,
     '& $listItemText': {
-      color: theme.palette.contrastText
+      color: theme.palette.Text
     },
     '& $listItemIcon': {
       marginLeft: '-4px'
@@ -55,7 +55,7 @@ export default makeStyles(theme => ({
   },
   listItemText: {
     fontWeight: 500,
-    color: theme.palette.contrastText
+    color: theme.palette.Text
   },
 
   [theme.breakpoints.down('sm')]: {

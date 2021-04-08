@@ -11,6 +11,7 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import CloseIcon from '@material-ui/icons/Close';
 
 //Components
 import Paper from '@material-ui/core/Paper';
@@ -24,8 +25,13 @@ import CardHeader from '@material-ui/core/CardHeader';
 
 import Button from "@material-ui/core/Button";
 import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
+
+import Snackbar from '@material-ui/core/Snackbar';
+
+import { getFromLS, saveToLS } from "../components/LocalStorage/LocalStorage";
 
 //Settings
 const styles = (theme) => ({
@@ -48,7 +54,9 @@ const styles = (theme) => ({
 class Flows extends Component {
 	constructor() {
 		super();
-		this.state = {};
+		this.state = {
+			savedsnack: getFromLS("savedsnack") || false,
+		};
 		this.isCurrentlyMounted = false;
 	}
 
@@ -107,6 +115,20 @@ class Flows extends Component {
           ))}
         </Grid>
       </Grid>
+      
+       <Snackbar
+        severity="success"
+	anchorOrigin={{ vertical: 'bottom', horizontal: 'center'  }}
+        open={this.state.savedsnack}
+        autoHideDuration={6000}
+        onClose={ () => { saveToLS("savedsnack", false); this.setState({savedsnack: false}) }}
+        message="Checklist Saved"
+        action={
+            <IconButton size="small" aria-label="close" color="inherit" onClick={ () => { saveToLS("savedsnack", false); this.setState({savedsnack: false}) } }   >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+        }
+      />
     </Grid>
 		)
 	}

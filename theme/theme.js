@@ -56,6 +56,12 @@ function createTheme(theme) {
 				borderBottom: "1px solid rgba(224, 224, 224, .5)"
 			},
 		},
+		MuiAccordionDetails: {
+			root: {
+				'background-color': palette.background.paper,
+				'margin-bottom':'15px'
+			}
+		},
 	},
 });
 }
