@@ -24,28 +24,15 @@ import {
 	Accordion, AccordionSummary, AccordionDetails, FormControlLabel
 	} from "@material-ui/core";
 
-import Checklist from "./mine/checklist";
-
 //Third Party
-import SignaturePad from 'react-signature-canvas'; // https://github.com/agilgur5/react-signature-canvas/tree/cra-example/
-import { getFromLS, saveToLS } from "../../components/LocalStorage/LocalStorage";
+import { getFromLS, saveToLS } from "components/LocalStorage/LocalStorage";
 
 //Settings
-import { styles } from "./styles";
-import { exampleChecklists } from "./examplechecks";
-
-function handleIssues() {
-	console.log("Handling Issues");
-}
-
-function handleCompletion() {
-	console.log("Handling Completion");
-	saveToLS("savedsnack", true);
-	window.location.replace("/assignment");
-}
+import styles from "components/Assignments/styles";
+import checklistsObj from "components/Assignments/checksdb";
 
 class MyAssignments extends Component {
-	defaultTitle = 'My Assignments';
+	defaultTitle = 'Assignments Completed';
 	constructor() {
 		super();
 		this.state = {
@@ -96,7 +83,7 @@ class MyAssignments extends Component {
 				</TableHead>
 				<TableBody>
 	   
-		   { exampleChecklists.map((check, index) => {
+		   { checklistsObj.map((check, index) => {
 			return (
 				    <TableRow key={'checklist-index-'+index}>
 				      <TableCell component="th" scope="row">

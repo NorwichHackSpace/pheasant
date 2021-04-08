@@ -62,11 +62,14 @@ const tea = [
 	},
 ];
 
-export const exampleChecklists = [
+const exampleChecklists = [
 	{ 'title': 'vehicle', 'desc': 'Vechicle Checks', 'checks': vehicle},
 	{ 'title': 'tea', 'desc': 'Make the Tea', 'checks': tea},
-]
+];
 
+export default exampleChecklists;
+
+//
 // My Jobs
 // * All
 // * Active

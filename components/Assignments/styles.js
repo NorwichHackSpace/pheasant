@@ -1,4 +1,6 @@
-export const styles = (theme) => ({
+import { makeStyles } from "@material-ui/core";
+
+export default (theme) => ({
 
 	signature: {
 		'text-align': 'center',

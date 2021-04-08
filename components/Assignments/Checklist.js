@@ -23,20 +23,20 @@ import {
 
 //Third Party
 import SignaturePad from 'react-signature-canvas'; // https://github.com/agilgur5/react-signature-canvas/tree/cra-example/
-import { getFromLS, saveToLS } from "../../../components/LocalStorage/LocalStorage";
+import { getFromLS, saveToLS } from "components/LocalStorage/LocalStorage";
 
 //Settings
-import { styles } from "./../styles";
-import { exampleChecklists } from "./../examplechecks";
+import styles from "./styles";
+import checklistsObj from "./checksdb";
 
 function handleIssues() {
 	console.log("Handling Issues");
 }
 
-function handleCompletion() {
-	console.log("Handling Completion");
+function handleCompletion(checked) {
+	console.log("Handling Completion:", checked);
 	saveToLS("savedsnack", true);
-	window.location.replace("/assignment");
+	//window.location.replace("/assignment");
 }
 
 class Checklist extends Component {
@@ -62,7 +62,6 @@ class Checklist extends Component {
 
 	componentDidMount() {
 		this.isCurrentlyMounted = true;
-		this.setState({checkList: exampleChecklists[this.props.checklist] });
 	}
 
 	componentWillUnmount() {
@@ -119,7 +118,7 @@ class Checklist extends Component {
 	render() {
 		const { classes } = this.props;
 		let { trimmedDataURL } = this.state;	
-		const checkList = exampleChecklists[this.props.checklist] || this.blankCheck;
+		const checkList = checklistsObj[this.props.checklist] || this.blankCheck;
 	
 		return (
     <>
