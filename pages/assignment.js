@@ -51,6 +51,7 @@ const styles = (theme) => ({
 	},
 });
 
+
 class Flows extends Component {
 	constructor() {
 		super();
@@ -74,7 +75,7 @@ class Flows extends Component {
 			{ title: 'My Assignments', 
 				icon: <AssignmentIndIcon style={{height: '50%', width: '50%'}} />,
 				desc: 'List tasks that you can complete',
-				link: 'assignment/checklist',
+				link: 'assignment/mine',
 			},
 			{ title: 'Assignments Not Done', 
 				icon: <AssignmentIcon style={{height: '50%', width: '50%'}} />,

@@ -23,88 +23,11 @@ import {
 
 //Third Party
 import SignaturePad from 'react-signature-canvas'; // https://github.com/agilgur5/react-signature-canvas/tree/cra-example/
-import { getFromLS, saveToLS } from "../../components/LocalStorage/LocalStorage";
+import { getFromLS, saveToLS } from "../../../components/LocalStorage/LocalStorage";
 
 //Settings
-
-const styles = (theme) => ({
-
-	signature: {
-		'text-align': 'center',
-		top: '10%',
-		left: '10%',
-	},
-
-	signcanvas: {
-		width: '80%',
-		'max-height': '100px',
-		aspectRatio: 6 / 2,
-		margin: '0 auto 20px',
-		'background-color': '#fff',
-		border: '1px solid grey',
-	},
-
-	sigPad: {
-		width: '100%',
-		height: '100%',
-	},
-
-	sigImage: {
-		'background-size': '40% auto',
-		width: '200px',
-		aspectRatio: 6 / 2,
-		'background-color': '#fff',
-		margin: '20px',
-	},
-	
-	checkitems: {
-		width: '100%',
-		border: '1px solid grey',
-		'background-color': theme.palette.background.default,
-		padding: '0 15px',
-	},
-
-	root: {
-		margin: '40px auto 15px',
-		padding: '0 0 15px 0',
-		width: '90%',
-
-	},
-	title: { 
-		'padding': '15px 25px 0', 
-	},
-});
-
-const exampleChecklist = [
-	{
-		title: 'Screenwash',
-		desc: 'The screenwash is topped up.',
-		resources: [ 
-			{ desc: 'Screenwash Guide' , link: 'screenwash' }, 
-			{ desc: 'Bug Removal' , link: 'debugging' }, 
-		],
-	},
-	{
-		title: 'Fuel',
-		desc: 'Fuel gauge shows at least half a tank.',
-		resources: [ 
-			{ desc: 'Selecting the correct fuel grade' , link: 'fuelgrades' }, 
-			{ desc: 'Dealing with a mis-fueling' , link: 'misfuel' },
-		],
-	},
-	{
-		title: 'Oil',
-		desc: 'Remove oil dip stick. Wipe with cloth. Insert, remove, and check level is between min and max'
-	},
-	{
-		title: 'Fluffy Dice',
-		desc: 'Fluffy dice are displayed in windscreen.'
-	},
-	{
-		title: 'Tires',
-		desc: 'Inspect tires. If Helicopter has them you have the wrong vehicle.'
-	},
-];
+import { styles } from "./../styles";
+import { exampleChecklists } from "./../examplechecks";
 
 function handleIssues() {
 	console.log("Handling Issues");
@@ -116,7 +39,18 @@ function handleCompletion() {
 	window.location.replace("/assignment");
 }
 
-class Flows extends Component {
+class Checklist extends Component {
+
+	//For hydration before props we need a blankCheck
+	blankCheck = 
+	{ 'title': '', 
+	  'desc': '', 
+	  'checks': [ 
+	  	{ title: '', 
+	  	  desc: '' 
+	  	}, 
+	  ]};
+
 	constructor() {
 		super();
 		this.state = {
@@ -128,6 +62,7 @@ class Flows extends Component {
 
 	componentDidMount() {
 		this.isCurrentlyMounted = true;
+		this.setState({checkList: exampleChecklists[this.props.checklist] });
 	}
 
 	componentWillUnmount() {
@@ -182,17 +117,14 @@ class Flows extends Component {
 /////////	
 
 	render() {
-		const {
-			classes
-		} = this.props;
-		let {
-			trimmedDataURL
-		} = this.state;	
+		const { classes } = this.props;
+		let { trimmedDataURL } = this.state;	
+		const checkList = exampleChecklists[this.props.checklist] || this.blankCheck;
+	
 		return (
-   <Paper className={classes.root} eveation={3}  >
-    <h1 className={classes.title}>Pre-Flight Checklist</h1>
+    <>
      <List dense >
-      {exampleChecklist.map((checkItem, index) => {
+      {checkList.checks.map((checkItem, index) => {
         const labelId = `checkbox-list-${checkItem.title}`;
         return (
           <ListItem key={labelId}  >
@@ -273,7 +205,7 @@ class Flows extends Component {
         }
        <br />
        {trimmedDataURL
-         ? ( this.state.checked.length !== exampleChecklist.length ) ?  	  
+         ? ( this.state.checked.length !== checkList.checks.length ) ?  	  
          		   <Button size='medium' onClick={this.issues} >
 				  Sign with Issues
 			   </Button>
@@ -309,21 +241,9 @@ class Flows extends Component {
 		      </Dialog>
 		      
     </div>
-    </Paper>)
+    </>
+	)
 	}
 }
 
-export default withStyles(styles)(Flows); //'Higher-order component' method of injecting MaterialUI themeing.     
-// My Jobs
-// * All
-// * Active
-// * Scheduled
-// My Flows
-// * Air Traffic Control
-// * Emergancy Changes
-// * Issues Logbook
-// * Logbook Adhoc
-// Flows Not Done
-//  ( Team issues, check on others )
-// Flows Checkup
-//  ( Show when check was done and by who )
+export default withStyles(styles)(Checklist); //'Higher-order component' method of injecting MaterialUI themeing.     

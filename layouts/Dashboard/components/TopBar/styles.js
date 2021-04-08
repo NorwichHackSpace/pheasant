@@ -59,6 +59,7 @@ export default makeStyles((theme) => ({
   [theme.breakpoints.down("xs")]: {
 //   brandWrapper: { marginLeft: "-50px", marginRight: "-50px", },
      brandWrapper: { marginLeft: "calc(8% + -50px)", marginRight: "calc(8% + -50px)", }, 
+     logo: { 'min-width': '100px', } ,
   },
   [theme.breakpoints.down("xzs")]: {
    logo: { display: "none" }, //TODO: Might be better to have a small logo?
