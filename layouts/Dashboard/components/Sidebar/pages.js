@@ -29,7 +29,7 @@ const pages = [
   
   {
     title: "Assignments",
-    href: "/assignment",
+    href: "/assignments",
     icon: <AssignmentIcon />,    
   },
   {

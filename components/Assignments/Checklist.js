@@ -29,8 +29,17 @@ import { getFromLS, saveToLS } from "components/LocalStorage/LocalStorage";
 import styles from "./styles";
 import checklistsObj from "./checksdb";
 
-function handleIssues() {
+function handleIssues(sheetObj) {
 	console.log("Handling Issues");
+	let sheets = getFromLS("savedSheets") || []; //Array
+	if ( Array.isArray(sheets) && sheets.push(sheetObj) ) {
+		saveToLS("savedSheets", sheets);
+		saveToLS("savedsnack", true);
+		window.location.replace("/assignments");
+	} else { //Error
+		console.error("Unable to save completed checklist to an locally stored array.");
+		saveToLS("savedSheets", []);
+	}
 }
 
 function handleCompletion(sheetObj) {
@@ -43,7 +52,7 @@ function handleCompletion(sheetObj) {
 	if ( Array.isArray(sheets) && sheets.push(sheetObj) ) {
 		saveToLS("savedSheets", sheets);
 		saveToLS("savedsnack", true);
-		window.location.replace("/assignment");
+		window.location.replace("/assignments");
 	} else { //Error
 		console.error("Unable to save completed checklist to an locally stored array.");
 		saveToLS("savedSheets", []);
@@ -114,6 +123,12 @@ class Checklist extends Component {
 	
 	issues = () => {
 		console.log("Found issues");
+		this.sheetObj = { //Parse state to Obj before passing to localised function
+			title: this.props.title, //String
+			checked: this.state.checked, //Array
+			signature: this.state.trimmedDataURL, //Image already converted to Base64
+			timeStamp: Date.now(), //Epoch
+		};
 		this.setState({issueDialog: true}); //Pop-up the 'are you sure'
 	}
 	
@@ -247,10 +262,10 @@ class Checklist extends Component {
 			<DialogActions>
 			  <Button onClick={ () => { this.setState({issueDialog: false}) } } color="primary">
 			    Resume Check
-			  </Button>
-			  <Button onClick={handleIssues} color="primary" autoFocus>
+			  </Button>  
+			  <Button onClick={ () => { handleIssues(this.sheetObj) } } color="primary" autoFocus>
 			    Raise Issues
-			  </Button>
+			  </Button> 
 			</DialogActions>
 		      </Dialog>
 		      

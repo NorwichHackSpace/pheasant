@@ -22,27 +22,16 @@ import {
 	List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText,
 	Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 	Accordion, AccordionSummary, AccordionDetails, FormControlLabel
-	} from "@material-ui/core";
+} from "@material-ui/core";
 
-	import Checklist from "components/Assignments/Checklist";
+import Checklist from "components/Assignments/Checklist";
 
 //Third Party
-import SignaturePad from 'react-signature-canvas'; // https://github.com/agilgur5/react-signature-canvas/tree/cra-example/
 import { getFromLS, saveToLS } from "components/LocalStorage/LocalStorage";
 
 //Settings
 import styles from "components/Assignments/styles";
 import checklistsObj from "components/Assignments/checksdb";
-
-function handleIssues() {
-	console.log("Handling Issues");
-}
-
-function handleCompletion() {
-	console.log("Handling Completion");
-	saveToLS("savedsnack", true);
-	window.location.replace("/assignment");
-}
 
 class MyAssignments extends Component {
 	defaultTitle = 'Assignments Not Done';
@@ -52,12 +41,16 @@ class MyAssignments extends Component {
 			checkList: 0,
 			listDisplay: false,
 			title: this.defaultTitle,
+			sheets: [],
 		};
 		this.isCurrentlyMounted = false;
 	}
 	
 	componentDidMount() {
 		this.isCurrentlyMounted = true;
+		this.setState({ 
+			sheets: getFromLS("savedSheets") || []  
+		});
 	}
 
 	componentWillUnmount() {
@@ -83,7 +76,7 @@ class MyAssignments extends Component {
 	</div>
 	   
 	   	{this.state.listDisplay 
-	   	? <Checklist classes={classes} checklist={this.state.checkList} />	
+	   	? <Checklist classes={classes} checklist={this.state.checkList} title={this.state.title} />	
 	   	:
 		<>
 	   	<Table className={classes.table} >
@@ -97,6 +90,7 @@ class MyAssignments extends Component {
 				<TableBody>
 	   
 		   { checklistsObj.map((check, index) => {
+			if ( this.state.sheets.some( element => element.title == check.desc )) { return }   		
 			return (
 				    <TableRow key={'checklist-index-'+index}>
 				      <TableCell component="th" scope="row">

@@ -86,6 +86,18 @@ class MyAssignments extends Component {
 				<TableBody>
 	   
 		   { this.state.sheets.map((check, index) => {
+			   console.log(check);
+			
+			   if ( check.checked.length < 5) { 
+				   /* 
+				    * TODO: 
+				    * Real quick rejection of checks with issues.
+					* Only works because all example checks are 5 checks long!
+					*
+					*/
+				   return;
+				}
+
 			return (
 				    <TableRow key={'checklist-index-'+index}>
 				      <TableCell component="th" scope="row">
