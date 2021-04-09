@@ -27,23 +27,11 @@ import {
 import Checklist from "components/Assignments/Checklist";
 
 //Third Party
-import SignaturePad from 'react-signature-canvas'; // https://github.com/agilgur5/react-signature-canvas/tree/cra-example/
 import { getFromLS, saveToLS } from "components/LocalStorage/LocalStorage";
 
 //Settings
 import styles from "components/Assignments/styles";
 import checklistsObj from "components/Assignments/checksdb";
-
-
-function handleIssues() {
-	console.log("Handling Issues");
-}
-
-function handleCompletion() {
-	console.log("Handling Completion");
-	saveToLS("savedsnack", true);
-	window.location.replace("/assignment");
-}
 
 class MyAssignments extends Component {
 	defaultTitle = 'My Assignments';
@@ -84,7 +72,7 @@ class MyAssignments extends Component {
 	</div>
 	   
 	   	{this.state.listDisplay 
-	   	? <Checklist classes={classes} checklist={this.state.checkList} />	
+	   	? <Checklist classes={classes} checklist={this.state.checkList} title={this.state.title} />	
 	   	:
 		<>
 	   	<Table className={classes.table} >

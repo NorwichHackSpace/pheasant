@@ -63,7 +63,7 @@ const tea = [
 ];
 
 const exampleChecklists = [
-	{ 'title': 'vehicle', 'desc': 'Vechicle Checks', 'checks': vehicle},
+	{ 'title': 'vehicle', 'desc': 'Vehicle Checks', 'checks': vehicle},
 	{ 'title': 'tea', 'desc': 'Make the Tea', 'checks': tea},
 ];
 

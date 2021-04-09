@@ -6,13 +6,8 @@ import {
 } from "@material-ui/core/styles";
 
 //Icons
-import IconButton from "@material-ui/core/IconButton";
-import FolderIcon from "@material-ui/icons/Folder";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined'
-import UndoOutlinedIcon from '@material-ui/icons/UndoOutlined';
+import FindInPageOutlinedIcon from '@material-ui/icons/FindInPageOutlined';
 
 //Components
 import {
@@ -37,64 +32,71 @@ class MyAssignments extends Component {
 		super();
 		this.state = {
 			checkList: 0,
-			listDisplay: false,
+			sigDisplay: false,
 			title: this.defaultTitle,
+			sheets: [],
 		};
+		this.signature = null;
 		this.isCurrentlyMounted = false;
 	}
 	
 	componentDidMount() {
 		this.isCurrentlyMounted = true;
+		this.setState({ 
+			sheets: getFromLS("savedSheets") || [] 
+		});
 	}
 
 	componentWillUnmount() {
 		this.isCurrentlyMounted = false;
 	}
 	
+	sigClose() {
+		this.setState({ 
+			sigDisplay: false 
+		});
+	};
+
 	render() {
 		const { classes } = this.props;
+
 
 	return (  
 	   <Paper className={classes.root} elevation={3}  > 
 	   <div style={{display:'flex'}} >
 		   <Typography type="title" className={classes.title} variant="h4" component="h1" >{this.state.title}
 		   </Typography>
-		{this.state.listDisplay    
-		?  <Button edge="end" aria-label="delete"  onClick={ () => { this.setState({ listDisplay: false, title: this.defaultTitle, }) } }  >
-			   <Tooltip title={"Cancel current assignment" }>
-			         <UndoOutlinedIcon />
-			   </Tooltip>
-		   </Button>
-		: null
-		}
 	</div>
 	   
-	   	{this.state.listDisplay 
-	   	? <Checklist classes={classes} checklist={this.state.checkList} />	
+	   	{ (this.state.sheets.length == 0 )
+	   	? 	<Typography style={{ 'padding' : '80px' }} variant="body1" component="body1" >
+			   <Divider /><br />
+			   <span style={{ 'padding' : '80px' }}>No checklists completed!</span>
+		   </Typography>
 	   	:
 		<>
 	   	<Table className={classes.table} >
 				<TableHead>
 				  <TableRow>
 				    <TableCell>Checklist</TableCell>
-				    <TableCell align="right">Type</TableCell>
+				    <TableCell align="right">Time</TableCell>
 				    <TableCell align="right"></TableCell>
 				  </TableRow>
 				</TableHead>
 				<TableBody>
 	   
-		   { checklistsObj.map((check, index) => {
+		   { this.state.sheets.map((check, index) => {
 			return (
 				    <TableRow key={'checklist-index-'+index}>
 				      <TableCell component="th" scope="row">
-					<Link color='secondary' href='#' onClick={ () => { this.setState({title: check.desc, checkList: index, listDisplay: true, }) ; } }>
-						{check.desc}	
+					<Link color='secondary' href='#' onClick={ () => { /* */; } } >
+						{check.title}	
 					</Link>
 				      </TableCell>
-				      <TableCell align="right">Adhoc</TableCell>
+				      <TableCell align="right">{ (new Date(check.timeStamp)).toLocaleString() }</TableCell>
 				      <TableCell align="right">
-						<Link color='secondary' href='#' onClick={ () => { this.setState({title: check.desc, checkList: index, listDisplay: true, }) ; } }>
-							<MenuBookIcon />			
+						<Link color='secondary' href='#' onClick={ () => { this.signature = check.signature; this.setState({sigDisplay: true, }) } }  >
+							<FindInPageOutlinedIcon />			
 						</Link>				      
 				      </TableCell>
 				    </TableRow>
@@ -104,6 +106,13 @@ class MyAssignments extends Component {
 	      </Table> 
 	      </>
 	     }
+{/* Display of signature */}
+	  <Dialog onClose={ () => { this.setState({sigDisplay: false, }) } } aria-labelledby="simple-dialog-title" open={ this.signature ? this.state.sigDisplay : false }
+	  		  onClick={() => { this.setState({sigDisplay: false, }) } }
+	  >
+		<DialogTitle id="simple-dialog-title">Signature</DialogTitle>
+		<img src={this.signature} style={{padding: '10px',}} />
+	  </Dialog>
 	   </Paper>
 	 )
 
@@ -111,9 +120,7 @@ class MyAssignments extends Component {
 
 }
 
-
-
-export default withStyles(styles)(MyAssignments); //'Higher-order component' method of injecting MaterialUI themeing.     
+export default withStyles(styles)(MyAssignments);
 // My Jobs
 // * All
 // * Active

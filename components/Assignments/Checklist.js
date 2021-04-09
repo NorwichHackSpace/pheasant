@@ -33,10 +33,21 @@ function handleIssues() {
 	console.log("Handling Issues");
 }
 
-function handleCompletion(checked) {
-	console.log("Handling Completion:", checked);
-	saveToLS("savedsnack", true);
-	//window.location.replace("/assignment");
+function handleCompletion(sheetObj) {
+	console.log("Handling Completion:", sheetObj);
+	//sheetObj.type; //String
+	//sheetObj.checked; //Array
+	//sheetObj.signature; //Base65
+	//sheetObj.timeStamp; //Epoch
+	let sheets = getFromLS("savedSheets") || []; //Array
+	if ( Array.isArray(sheets) && sheets.push(sheetObj) ) {
+		saveToLS("savedSheets", sheets);
+		saveToLS("savedsnack", true);
+		window.location.replace("/assignment");
+	} else { //Error
+		console.error("Unable to save completed checklist to an locally stored array.");
+		saveToLS("savedSheets", []);
+	}
 }
 
 class Checklist extends Component {
@@ -101,20 +112,22 @@ class Checklist extends Component {
 		})
 	}
 	
-/////////	
-
 	issues = () => {
 		console.log("Found issues");
-		this.setState({issueDialog: true});
+		this.setState({issueDialog: true}); //Pop-up the 'are you sure'
 	}
 	
 	successful = () => {
 		console.log("Checklist successful");
-		handleCompletion();
+		let sheetObj = { //Parse state to Obj before passing to localised function
+			title: this.props.title, //String
+			checked: this.state.checked, //Array
+			signature: this.state.trimmedDataURL, //Image already converted to Base64
+			timeStamp: Date.now(), //Epoch
+		};
+		handleCompletion(sheetObj);
 	}
 	
-/////////	
-
 	render() {
 		const { classes } = this.props;
 		let { trimmedDataURL } = this.state;	
@@ -205,9 +218,11 @@ class Checklist extends Component {
        <br />
        {trimmedDataURL
          ? ( this.state.checked.length !== checkList.checks.length ) ?  	  
+		 /*  ISSUES CALLED HERE  */
          		   <Button size='medium' onClick={this.issues} >
 				  Sign with Issues
 			   </Button>
+		 /*  SUCCESS CALLED HERE */			   
 	   	  :        <Button size='medium' onClick={this.successful} >
 				  Sign as Successful
 			   </Button>
