@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
   brandWrapper: {
     //background: theme.palette.primary.main,
     display: "flex",
-    justifyContent: "left",
+    justifyContent: "center",
     alignItems: "center",
     width: "271px", //Ugly hack to get the height of logo displayed
     height: "calc(100% - 2px)",
@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
   },
   logo: {
     width: "calc(100% - 90px)",
-    height: "100%",
+    height: "115%",
     margin: "20px", //EAAA Logo doesn't resize until ~20px
     paddingTop: "15px", //Another ugly hack to get the height of logo centered to the bar
     fontSize: 22,

@@ -5,6 +5,7 @@ Password.*
 password.*
 passwords.*
 Passwords.*
+next.config.js
 
 # Linux editors
 *.swap

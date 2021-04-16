@@ -32,6 +32,7 @@ const pages = [
     href: "/assignments",
     icon: <AssignmentIcon />,    
   },
+/*
   {
     title: "Resources",
     href: "/Resources",
@@ -42,6 +43,7 @@ const pages = [
     href: "/Resources",
     icon: <SettingsIcon />,
   },
+*/
 ];
 
 export default pages;

@@ -1,6 +1,6 @@
 import { red, blue, lightBlue, yellow, green } from "@material-ui/core/colors";
 
-export const EAAAcolors = {
+export const EAAAcolors = {  //Old 'client' color scheme
 	primary: {
 		yellow: "#ffc600", //mid
 		red: "#DD042D", //darkish
@@ -11,11 +11,13 @@ export const EAAAcolors = {
 		darkgrey: "#464749", //Darkest all the greys
 		blue: "#8BD1EA", //light
 	}
-
 }
+
+export const wideImageFile = "url(/logos/logo-hoz-pheasant.png)";
 
 export const themePalette = {
   //What seems to be the correct formatting...
+/*
   EAAA: {
     type: "light", //A little misgiving. The main collor of yellow is light, but he secondary red is dark.
     primary: { 
@@ -32,8 +34,7 @@ export const themePalette = {
       wideImage: "url(/logos/logo-hoz-eaaa.png)",
     },
   },
-  
-  //Old formatting...
+*/
   Light: {
     type: "light",
     primary: { 
@@ -45,9 +46,9 @@ export const themePalette = {
     	contrastText: "white",
     },
     background: { paper: "rgb(255, 255, 255)", default: "rgb(244, 244, 244)"},
-    contrastText: "white",
+    contrastText: "black",
     logos: {
-      wideImage: "url(/logos/logo-hoz-eaaa.png)",
+      wideImage: wideImageFile,
     },
   },
   Dark: {
@@ -63,7 +64,7 @@ export const themePalette = {
     background: { paper: "rgb(66, 66, 66)", default: "rgb(51, 51, 51)" },
     contrastText: "white",
     logos: {
-      wideImage: "url(/logos/logo-hoz-eaaa.png)",
+      wideImage: wideImageFile,
     },
   },
   Contrast: {
@@ -79,7 +80,7 @@ export const themePalette = {
     background: { paper: "rgb(0, 0, 0)", default: "rgb(33, 33, 33)" },
     contrastText: "white",
     logos: {
-      wideImage: "url(/logos/logo-hoz-eaaa-whiten.png)",
+      wideImage: "url(/logos/logo-hoz-pheasant-whiten.png)",
     },
   },
 };
