@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 import createTheme from './theme';

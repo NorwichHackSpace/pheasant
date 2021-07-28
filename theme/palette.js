@@ -16,25 +16,6 @@ export const EAAAcolors = {  //Old 'client' color scheme
 export const wideImageFile = "url(/logos/logo-hoz-pheasant.png)";
 
 export const themePalette = {
-  //What seems to be the correct formatting...
-/*
-  EAAA: {
-    type: "light", //A little misgiving. The main collor of yellow is light, but he secondary red is dark.
-    primary: { 
-    	main: EAAAcolors.primary.yellow, //You only need to specify the main here, the light and dark are calculated
-    	contrastText: "black",
-    }, 
-    secondary: { 
-    	main: EAAAcolors.primary.red, 
-    	contrastText: "white",
-    },
-    background: { paper: EAAAcolors.secondary.coolgrey, default: EAAAcolors.primary.coolgrey },
-    contrastText: "black",
-    logos: {
-      wideImage: "url(/logos/logo-hoz-eaaa.png)",
-    },
-  },
-*/
   Light: {
     type: "light",
     primary: { 

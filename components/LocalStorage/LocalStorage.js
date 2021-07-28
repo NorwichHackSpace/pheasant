@@ -13,15 +13,15 @@ export function getFromLS(key) {
 export function saveToLS(key, value) {
   let oldStore = {};
   try {
-	oldStore = JSON.parse(global.localStorage.getItem("dashboard")) || {};
-      } catch (e) {
-        console.error(e);
-      }
-     
-  let newStore = {[key]: value};
-  newStore = {...oldStore,...newStore };
+    oldStore = JSON.parse(global.localStorage.getItem("dashboard")) || {};
+  } catch (e) {
+    console.error(e);
+  }
+
+  let newStore = { [key]: value };
+  newStore = { ...oldStore, ...newStore };
   newStore = JSON.stringify(newStore);
-  if (global.localStorage) { 
+  if (global.localStorage) {
     global.localStorage.setItem(
       "dashboard",
       newStore

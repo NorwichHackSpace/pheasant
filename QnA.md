@@ -8,9 +8,9 @@ Client Q&A
 * Will different screen sizes be used, or just mobiles
 * What time scales are involved for implemtation
 * Does the client require direct editing, and how freqencly
-** Use of Wiki style editing and links to PDFs?
+* Use of Wiki style editing and links to PDFs?
 * Concerns over logo use, copyright right issues
-** Any digital material (jpegs/png or example pdfs) that can be shared for development
+* Any digital material (jpegs/png or example pdfs) that can be shared for development
 * Hosting (as an end aim) on excisting or new infostructure?
-** Current (public) website using Bootstrap 4, Designed by Optimad Design Lincolnshire
-** What current operations / administration software is used
+* Current (public) website using Bootstrap 4
+* What current operations / administration software is used

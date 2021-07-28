@@ -1,11 +1,7 @@
 import { makeStyles } from "@material-ui/core";
-import { urlObjectKeys } from "next/dist/next-server/lib/utils";
-import { EAAAcolors } from "../../../../theme/palette";
 
 export default makeStyles((theme) => ({
   root: {
-    borderBottom: `3px solid ${theme.palette.background.secondary}`,
-    boxShadow: `2 0 35px 0  ${theme.palette.background.secondary}`,
     backgroundColor: theme.palette.primary.main,
     display: "flex",
     alignItems: "center",
@@ -57,7 +53,6 @@ export default makeStyles((theme) => ({
    toolbar: { width: "100%", },
   },
   [theme.breakpoints.down("xs")]: {
-//   brandWrapper: { marginLeft: "-50px", marginRight: "-50px", },
      brandWrapper: { marginLeft: "calc(8% + -50px)", marginRight: "calc(8% + -50px)", }, 
      logo: { 'min-width': '100px', } ,
   },

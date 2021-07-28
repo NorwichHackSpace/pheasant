@@ -10,7 +10,6 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import { getFromLS, saveToLS } from "../../../../components/LocalStorage/LocalStorage"
 
 // Component styles
-import ResponsiveLocalStorageLayout from "../../../../components/ResponsiveGrid/ResponsiveGrid";
 import useStyles from "./styles";
 import ThemeToggler from "../../../../components/ThemeToggler/ThemeToggler";
 

@@ -90,7 +90,7 @@ export const OpenSky = ({
 			headers: {},
 			referrer: 'no-referrer',
 			referrerPolicy: 'no-referrer',
-			timeout: 1000,
+			timeout: 2000,
 		    }).then( resp => {
 			if (resp.status == 200) {
 		 	        if ( resp.data.states == null || !Array.isArray(resp.data.states) ) { this.onPositionError(); }

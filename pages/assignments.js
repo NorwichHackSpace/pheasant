@@ -26,7 +26,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import Snackbar from '@material-ui/core/Snackbar';
-
 import { getFromLS, saveToLS } from "../components/LocalStorage/LocalStorage";
 
 //Settings
@@ -50,7 +49,6 @@ const styles = (theme) => ({
 		width: '50%'
 	},
 });
-
 
 class Flows extends Component {
 	constructor() {
